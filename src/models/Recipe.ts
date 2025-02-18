@@ -5,8 +5,10 @@ export type Recipe = {
 	name: string;
 	products: [
 		{
-			product: Product;
-			amount: number;
+			product: {
+				id: string,
+			},
+			amount: number,
 		}
-	]
+	],
 }
