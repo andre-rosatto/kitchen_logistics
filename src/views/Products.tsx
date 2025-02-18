@@ -43,6 +43,7 @@ export default function ProductsView() {
 			unit: data.unit,
 		}, ...products]);
 		setNewProduct('');
+		setNewUnit('');
 		setLoading(false);
 	}
 
