@@ -1,27 +1,49 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../css/ProductsView.css';
 import { Product } from '../models/Products';
 import addIcon from '../assets/add_icon.svg';
 import deleteIcon from '../assets/delete_icon.svg';
 import TableInput from '../components/TableInput';
+import useFirebase from '../hooks/useFirebase';
 
 export default function ProductsView() {
 	const [newProduct, setNewProduct] = useState('');
 	const [newUnit, setNewUnit] = useState('');
 	const [products, setProducts] = useState<Product[]>([]);
+	const { fetchData, addData, deleteItem } = useFirebase('products');
 
-	const handleAddClick = () => {
-		setProducts(products => [{
-			id: Date.now().toString(),
+	useEffect(() => {
+		fetchData().then(docs => {
+			const nextProducts: Product[] = [];
+			docs.forEach((doc: any) => {
+				nextProducts.push({
+					id: doc.id,
+					name: doc.data().name,
+					unit: doc.data().unit,
+				});
+			});
+			setProducts(nextProducts);
+		});
+	}, []);
+
+	const handleAddClick = async () => {
+		const data = {
 			name: newProduct,
 			unit: newUnit,
+		};
+		const product = await addData(data);
+		setProducts(products => [{
+			id: product.id,
+			name: data.name,
+			unit: data.unit,
 		}, ...products]);
 		setNewProduct('');
 	}
 
-	const handleDeleteClick = (product: Product) => {
+	const handleDeleteClick = async (product: Product) => {
 		if (confirm(`Tem certeza de que quer excluir este produto?\n${product.name} - ${product.unit}`)) {
-			console.log('delete:', product);
+			await deleteItem(product.id);
+			setProducts(products => products.filter(p => p.id !== product.id));
 		}
 	}
 
@@ -64,38 +86,40 @@ export default function ProductsView() {
 
 				<table>
 					<thead>
-						<th>Produto</th>
-						<th>Unidade</th>
-						<th></th>
-					</thead>
-					{products.map(product => (
 						<tr>
-							<td>
-								<TableInput
-									key={product.id + product.name}
-									value={product.name}
-									onChange={(newValue) => handleProductChange(product.id, newValue)}
-								/>
-							</td>
-
-							<td>
-								<TableInput
-									key={product.id + product.unit}
-									value={product.unit}
-									onChange={(newValue) => handleProductChange(product.id, newValue)}
-								/>
-							</td>
-
-							<td>
-								<button
-									className='buttonBad'
-									onClick={() => handleDeleteClick(product)}
-								>
-									<img src={deleteIcon} />
-								</button>
-							</td>
+							<th>Produto</th>
+							<th>Unidade</th>
+							<th></th>
 						</tr>
-					))}
+					</thead>
+					<tbody>
+						{products.map(product => (
+							<tr key={product.id}>
+								<td>
+									<TableInput
+										value={product.name}
+										onChange={(newValue) => handleProductChange(product.id, newValue)}
+									/>
+								</td>
+
+								<td>
+									<TableInput
+										value={product.unit}
+										onChange={(newValue) => handleProductChange(product.id, newValue)}
+									/>
+								</td>
+
+								<td>
+									<button
+										className='buttonBad'
+										onClick={() => handleDeleteClick(product)}
+									>
+										<img src={deleteIcon} />
+									</button>
+								</td>
+							</tr>
+						))}
+					</tbody>
 				</table>
 			</div>
 		</main>

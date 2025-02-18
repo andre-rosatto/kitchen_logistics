@@ -13,6 +13,7 @@ export default function Navbar({ currentPageIdx, onPageChange }: NavbarProps) {
 			<ul>
 				{PAGES.map((page, idx) =>
 					<li
+						key={idx}
 						className={idx === currentPageIdx ? 'selected' : ''}
 						onClick={() => onPageChange(idx)}
 					>{page}</li>

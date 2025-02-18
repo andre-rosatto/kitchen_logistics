@@ -73,18 +73,18 @@
   text-align: left;
 }
 
-.ProductsView .table th {
-  padding: 0.5rem;
+.ProductsView .table thead th {
+  padding: 0.5rem 1rem;
 }
 
-.ProductsView .table table tr {
+.ProductsView .table tbody tr {
   background-color: var(--table);
 }
 
-.ProductsView .table table tr:nth-child(even) {
+.ProductsView .table tbody tr:nth-child(even) {
   background-color: var(--tableEven);
 }
 
-.ProductsView .table td {
+.ProductsView .table tbody td {
   padding: 0.25rem 0.5rem;
 }
