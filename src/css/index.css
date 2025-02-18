@@ -1,9 +1,14 @@
 :root {
   background-color: #333;
   font-family: Arial, Helvetica, sans-serif;
+  --onBackground: white;
   --primary: coral;
   --onPrimary: black;
   --accentPrimary: #fda585;
+  --buttonGood: forestgreen;
+  --buttonBad: darkred;
+  --table: black;
+  --tableEven: #333;
 }
 
 body {
