@@ -1,0 +1,13 @@
+:root {
+  background-color: #333;
+  font-family: Arial, Helvetica, sans-serif;
+  --primary: coral;
+  --onPrimary: black;
+  --accentPrimary: #fda585;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+

@@ -1,0 +1,35 @@
+.ProductsView {
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+}
+
+.ProductsView .table {
+  border: 1px solid var(--primary);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.ProductsView .table h2 {
+  background-color: var(--primary);
+  margin: 0;
+  padding: 0.5rem 1rem;
+}
+
+.ProductsView .table .add-bar {
+  background-color: var(--accentPrimary);
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.ProductsView .table .add-bar input {
+  margin-left: 0.25rem;
+}
+
+.ProductsView .table .add-bar input.input-small {
+  width: 4rem;
+}
+
+.ProductsView .table .add-bar button {
+}
