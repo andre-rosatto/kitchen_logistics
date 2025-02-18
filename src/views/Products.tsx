@@ -5,14 +5,17 @@ import addIcon from '../assets/add_icon.svg';
 import deleteIcon from '../assets/delete_icon.svg';
 import TableInput from '../components/TableInput';
 import useFirebase from '../hooks/useFirebase';
+import LoadingOverlay from '../components/LoadingOverlay';
 
 export default function ProductsView() {
+	const [loading, setLoading] = useState(true);
 	const [newProduct, setNewProduct] = useState('');
 	const [newUnit, setNewUnit] = useState('');
 	const [products, setProducts] = useState<Product[]>([]);
 	const { fetchData, addData, deleteItem } = useFirebase('products');
 
 	useEffect(() => {
+		setLoading(true);
 		fetchData().then(docs => {
 			const nextProducts: Product[] = [];
 			docs.forEach((doc: any) => {
@@ -23,10 +26,12 @@ export default function ProductsView() {
 				});
 			});
 			setProducts(nextProducts);
+			setLoading(false);
 		});
 	}, []);
 
 	const handleAddClick = async () => {
+		setLoading(true);
 		const data = {
 			name: newProduct,
 			unit: newUnit,
@@ -38,12 +43,15 @@ export default function ProductsView() {
 			unit: data.unit,
 		}, ...products]);
 		setNewProduct('');
+		setLoading(false);
 	}
 
 	const handleDeleteClick = async (product: Product) => {
 		if (confirm(`Tem certeza de que quer excluir este produto?\n${product.name} - ${product.unit}`)) {
+			setLoading(true);
 			await deleteItem(product.id);
 			setProducts(products => products.filter(p => p.id !== product.id));
+			setLoading(false);
 		}
 	}
 
@@ -53,6 +61,8 @@ export default function ProductsView() {
 
 	return (
 		<main className='ProductsView'>
+			{loading && <LoadingOverlay />}
+
 			<div className='table'>
 				<h2>Produtos</h2>
 

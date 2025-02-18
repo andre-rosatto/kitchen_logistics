@@ -1,0 +1,27 @@
+@keyframes loading {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.LoadingOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--overlayBackground);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.LoadingOverlay img {
+  animation-name: loading;
+  animation-duration: 4s;
+  animation-timing-function: steps(9);
+  animation-iteration-count: infinite;
+}
