@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import '../css/ProductsView.css';
-import { Product } from '../models/Products';
+import { Product } from '../models/Product';
 import addIcon from '../assets/add_icon.svg';
 import deleteIcon from '../assets/delete_icon.svg';
 import TableInput from '../components/TableInput';

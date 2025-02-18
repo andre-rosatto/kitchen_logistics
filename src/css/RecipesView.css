@@ -1,0 +1,109 @@
+.RecipesView {
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+}
+
+.RecipesView button {
+  border: 1px solid var(--onPrimary);
+  border-radius: 0.5rem;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+.RecipesView button:disabled {
+  pointer-events: none;
+  opacity: 0.25;
+}
+
+.RecipesView button.buttonGood {
+  background-color: var(--buttonGood);
+}
+
+.RecipesView button.buttonBad {
+  background-color: var(--buttonBad);
+}
+
+.RecipesView .table button img {
+  display: block;
+  width: 100%;
+}
+
+.RecipesView .table {
+  border: 1px solid var(--primary);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.RecipesView .table h2 {
+  background-color: var(--primary);
+  margin: 0;
+  padding: 0.5rem 1rem;
+}
+
+.RecipesView .table .add-bar {
+  background-color: var(--accentPrimary);
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.RecipesView .table .add-bar input {
+  margin-left: 0.25rem;
+  padding: 0.2rem 0.2rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--onPrimary);
+  outline: none;
+}
+
+.RecipesView .table table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.RecipesView .table thead {
+  background-color: var(--primary);
+  text-align: left;
+}
+
+.RecipesView .table thead th {
+  padding: 0.5rem 1rem;
+}
+
+.RecipesView .table tbody tr {
+  background-color: var(--table);
+  color: var(--onBackground);
+}
+
+.RecipesView .table tbody tr:nth-child(even) {
+  background-color: var(--tableEven);
+}
+
+.RecipesView .table tbody td {
+  padding: 0.25rem 0.5rem;
+}
+
+.RecipesView .subtable {
+  border-radius: 0.5rem;
+  margin: 0.25rem;
+  overflow: hidden;
+  border: 1px solid var(--primary);
+}
+
+.RecipesView .subtable h3 {
+  padding: 0.5rem;
+  background-color: var(--primary);
+  margin: 0;
+}
+
+.RecipesView .subtable label select {
+  margin-left: 0.25rem;
+}
+
+.RecipesView .subtable input.amount {
+  width: 4rem;
+  margin-right: 0.25rem;
+}
