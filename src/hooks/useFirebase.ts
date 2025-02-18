@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { collection, getDocs, getFirestore, addDoc, deleteDoc, doc } from "firebase/firestore";
+import { collection, getDocs, getFirestore, addDoc, deleteDoc, doc, updateDoc } from "firebase/firestore";
+import { useCallback } from "react";
 
 export default function useFirebase(collectionName: string) {
 	const firebaseConfig = {
@@ -13,18 +14,22 @@ export default function useFirebase(collectionName: string) {
 	const app = initializeApp(firebaseConfig);
 	const db = getFirestore(app);
 
-	const fetchData = async () => {
+	const fetchData = useCallback(async () => {
 		const querySnapshot = await getDocs(collection(db!, collectionName));
 		return querySnapshot.docs;
-	}
+	}, [collectionName]);
 
-	const addData = async (data: any) => {
+	const addData = useCallback(async (data: any) => {
 		return await addDoc(collection(db, collectionName), data);
-	}
+	}, [collectionName]);
 
-	const deleteItem = async (id: string) => {
+	const deleteItem = useCallback(async (id: string) => {
 		await deleteDoc(doc(db, collectionName, id));
-	}
+	}, [collectionName]);
 
-	return { fetchData, addData, deleteItem };
+	const updateItem = useCallback(async (id: string, data: any) => {
+		await updateDoc(doc(db, collectionName, id), data);
+	}, [collectionName]);
+
+	return { fetchData, addData, deleteItem, updateItem };
 }

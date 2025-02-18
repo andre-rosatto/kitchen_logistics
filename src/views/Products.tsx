@@ -12,7 +12,7 @@ export default function ProductsView() {
 	const [newProduct, setNewProduct] = useState('');
 	const [newUnit, setNewUnit] = useState('');
 	const [products, setProducts] = useState<Product[]>([]);
-	const { fetchData, addData, deleteItem } = useFirebase('products');
+	const { fetchData, addData, deleteItem, updateItem } = useFirebase('products');
 
 	useEffect(() => {
 		setLoading(true);
@@ -33,8 +33,8 @@ export default function ProductsView() {
 	const handleAddClick = async () => {
 		setLoading(true);
 		const data = {
-			name: newProduct,
-			unit: newUnit,
+			name: newProduct.trim(),
+			unit: newUnit.trim(),
 		};
 		const product = await addData(data);
 		setProducts(products => [{
@@ -55,8 +55,14 @@ export default function ProductsView() {
 		}
 	}
 
-	const handleProductChange = (productId: string, newValue: string) => {
-		console.log(productId, newValue);
+	const handleProductChange = async (productId: string, newValue: Product) => {
+		setLoading(true);
+		await updateItem(productId, {
+			name: newValue.name.trim(),
+			unit: newValue.unit.trim(),
+		});
+		setProducts(products => products.map(p => p.id !== productId ? p : newValue));
+		setLoading(false);
 	}
 
 	return (
@@ -108,14 +114,14 @@ export default function ProductsView() {
 								<td>
 									<TableInput
 										value={product.name}
-										onChange={(newValue) => handleProductChange(product.id, newValue)}
+										onChange={(newValue) => handleProductChange(product.id, { ...product, name: newValue })}
 									/>
 								</td>
 
 								<td>
 									<TableInput
 										value={product.unit}
-										onChange={(newValue) => handleProductChange(product.id, newValue)}
+										onChange={(newValue) => handleProductChange(product.id, { ...product, unit: newValue })}
 									/>
 								</td>
 

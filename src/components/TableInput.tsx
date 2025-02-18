@@ -7,22 +7,35 @@ interface TableInputProps {
 }
 
 export default function TableInput({ value, onChange }: TableInputProps) {
-	const [inputValue, setInputValue] = useState(value);
+	const [oldValue, setOldValue] = useState(value);
+	const [newValue, setNewValue] = useState(value);
 
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.key === 'Enter') {
-			console.log(e);
 			(e.target as HTMLInputElement).blur();
+		} else if (e.key === 'Escape') {
+			setNewValue(oldValue);
+		}
+	}
+
+	const handleBlur = (value: string) => {
+		const trimmedValue = value.trim();
+		if (trimmedValue.length > 0 && trimmedValue !== oldValue) {
+			onChange(trimmedValue);
+			setOldValue(trimmedValue);
+			setNewValue(trimmedValue);
+		} else {
+			setNewValue(oldValue);
 		}
 	}
 
 	return (
 		<input
 			className='TableInput'
-			value={inputValue}
-			onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
+			value={newValue}
+			onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewValue(e.target.value)}
 			onKeyDown={handleKeyDown}
-			onBlur={() => onChange(inputValue)}
+			onBlur={() => handleBlur(newValue)}
 		/>
 	);
 }
