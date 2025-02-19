@@ -1,0 +1,97 @@
+.RecipeItem {
+  border-radius: 0.5rem;
+  margin: 0.25rem;
+  overflow: hidden;
+  border: 1px solid var(--primary);
+}
+
+.RecipeItem .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  background-color: var(--primary);
+}
+
+.RecipeItem .header h3 {
+  margin: 0;
+}
+
+.RecipeItem label select {
+  margin-left: 0.25rem;
+}
+
+.RecipeItem input.amount {
+  width: 4rem;
+  margin-right: 0.25rem;
+}
+
+.RecipeItem .add-bar {
+  background-color: var(--accentPrimary);
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.RecipeItem .add-bar input {
+  margin-left: 0.25rem;
+  padding: 0.2rem 0.2rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--onPrimary);
+  outline: none;
+}
+
+.RecipeItem table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.RecipeItem table thead {
+  background-color: var(--primary);
+  text-align: left;
+}
+
+.RecipeItem table thead th {
+  padding: 0.5rem 1rem;
+}
+
+.RecipeItem table tbody tr {
+  background-color: var(--table);
+  color: var(--onBackground);
+}
+
+.RecipeItem table tbody tr:nth-child(even) {
+  background-color: var(--tableEven);
+}
+
+.RecipeItem table tbody td {
+  padding: 0.25rem 0.5rem;
+}
+
+.RecipeItem button {
+  border: 1px solid var(--onPrimary);
+  border-radius: 0.5rem;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+.RecipeItem button:disabled {
+  pointer-events: none;
+  opacity: 0.25;
+}
+
+.RecipeItem button.buttonGood {
+  background-color: var(--buttonGood);
+}
+
+.RecipeItem button.buttonBad {
+  background-color: var(--buttonBad);
+}
+
+.RecipeItem button img {
+  display: block;
+  width: 100%;
+}

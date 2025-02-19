@@ -1,20 +1,16 @@
 import { useEffect, useState } from "react";
 import LoadingOverlay from "../components/LoadingOverlay";
 import addIcon from '../assets/add_icon.svg';
-import deleteIcon from '../assets/delete_icon.svg';
 import '../css/RecipesView.css';
 import { Recipe } from "../models/Recipe";
 import { Product } from "../models/Product";
 import useFirebase from "../hooks/useFirebase";
-import TableSelect from "../components/TableSelect";
-import TableInput from "../components/TableInput";
+import RecipeItem from "../components/RecipeItem";
 
 export default function RecipesView() {
 	const [loading, setLoading] = useState(false);
 	const [newRecipe, setNewRecipe] = useState('');
 	const [products, setProducts] = useState<Product[]>([]);
-	const [newProductId, setNewProductId] = useState<string>();
-	const [newProductAmount, setNewProductAmount] = useState('');
 	const [recipes, setRecipes] = useState<Recipe[]>([]);
 	const { fetchData, addData, updateItem, deleteItem } = useFirebase('recipes');
 	const { fetchData: fetchProductsData } = useFirebase('products');
@@ -48,7 +44,6 @@ export default function RecipesView() {
 					}
 				})
 			}));
-			setNewProductId(nextProducts[0].id);
 			setProducts(nextProducts);
 			setRecipes(nextRecipes);
 		}
@@ -58,9 +53,21 @@ export default function RecipesView() {
 		}
 	}, []);
 
-	const handleAddRecipe = () => {
+	const handleAddRecipe = async () => {
 		setLoading(true);
+		const data = {
+			name: newRecipe.trim(),
+			products: [] as unknown as Recipe["products"],
+		};
+		const recipe = await addData(data);
+		setNewRecipe('');
+		console.log(recipe);
 
+		setRecipes(recipes => [{
+			id: recipe.id,
+			name: data.name,
+			products: data.products,
+		}, ...recipes]);
 		setLoading(false);
 	}
 
@@ -68,15 +75,19 @@ export default function RecipesView() {
 		setLoading(true);
 		const nextRecipe = { ...recipe };
 		nextRecipe.products[productIdx].product.id = selectedId;
+		console.log(selectedId);
+
+		console.log(nextRecipe);
+
 		await updateItem(recipe.id, nextRecipe);
 		setRecipes(recipes => recipes.map(r => r.id !== nextRecipe.id ? r : nextRecipe));
 		setLoading(false);
 	}
 
-	const handleAmountChange = async (recipe: Recipe, productIdx: number, newAmount: string) => {
+	const handleAmountChange = async (recipe: Recipe, productIdx: number, newAmount: number) => {
 		setLoading(true);
 		const nextRecipe = { ...recipe };
-		nextRecipe.products[productIdx].amount = parseFloat(newAmount);
+		nextRecipe.products[productIdx].amount = newAmount;
 		await updateItem(recipe.id, nextRecipe);
 		setRecipes(recipes => recipes.map(r => r.id !== nextRecipe.id ? r : nextRecipe));
 		setLoading(false);
@@ -91,15 +102,22 @@ export default function RecipesView() {
 		setLoading(false);
 	}
 
-	const handleAddProduct = async (recipe: Recipe) => {
+	const handleAddProduct = async (recipe: Recipe, productId: string, productAmount: number) => {
 		setLoading(true);
 		const nextRecipe = { ...recipe };
 		nextRecipe.products.unshift({
-			product: { id: newProductId! },
-			amount: parseFloat(newProductAmount),
+			product: { id: productId },
+			amount: productAmount,
 		});
 		await updateItem(recipe.id, nextRecipe);
 		setRecipes(recipes => recipes.map(r => r.id !== nextRecipe.id ? r : nextRecipe));
+		setLoading(false);
+	}
+
+	const handleDeleteRecipe = async (recipe: Recipe) => {
+		setLoading(true);
+		setRecipes(recipes => recipes.filter(r => r.id !== recipe.id));
+		await deleteItem(recipe.id);
 		setLoading(false);
 	}
 
@@ -130,81 +148,17 @@ export default function RecipesView() {
 				</div>
 
 				{recipes.map(recipe => (
-					<div
-						className='subtable'
+					<RecipeItem
 						key={recipe.id}
-					>
-						<h3>{recipe.name}</h3>
-						<div className='add-bar'>
-							<label>
-								Produto:
-								<TableSelect
-									titles={products.map(product => product.name)}
-									ids={products.map(product => product.id)}
-									value={newProductId ?? ''}
-									onSelect={setNewProductId}
-								/>
-							</label>
+						recipe={recipe}
+						products={products}
+						onAddProduct={(productId, productAmount) => handleAddProduct(recipe, productId, productAmount)}
+						onAmountChange={(productIdx, newAmount) => handleAmountChange(recipe, productIdx, newAmount)}
+						onDeleteProduct={(productIdx: number) => handleDeleteProduct(recipe, productIdx)}
+						onSelect={(productIdx, selectedId) => handleSelect(recipe, productIdx, selectedId)}
+						onDeleteRecipe={() => handleDeleteRecipe(recipe)}
+					/>
 
-							<label>
-								Quantidade:
-								<input
-									className='amount'
-									value={newProductAmount}
-									onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewProductAmount(e.currentTarget.value)}
-								/>
-								{products.find(product => product.id === newProductId)!.unit}
-							</label>
-
-							<button
-								className='buttonGood'
-								disabled={newProductAmount.trim().length === 0}
-								title='Adicionar produto'
-								onClick={() => handleAddProduct(recipe)}
-							>
-								<img src={addIcon} />
-							</button>
-						</div>
-						<table>
-							<thead>
-								<tr>
-									<th>Produto</th>
-									<th>Quantidade</th>
-									<th>Unidade</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								{recipe.products.map((item, idx) => (
-									<tr key={idx + recipe.id + item.product.id}>
-										<td>
-											<TableSelect
-												titles={products.map(product => product.name)}
-												ids={products.map(product => product.id)}
-												value={item.product.id}
-												onSelect={id => handleSelect(recipe, idx, id)}
-											/>
-										</td>
-										<td>
-											<TableInput
-												value={item.amount.toString()}
-												onChange={newValue => handleAmountChange(recipe, idx, newValue)}
-											/>
-										</td>
-										<td>{products.find(p => p.id === item.product.id)!.unit}</td>
-										<td>
-											<button
-												className='buttonBad'
-												onClick={() => handleDeleteProduct(recipe, idx)}
-											>
-												<img src={deleteIcon} />
-											</button>
-										</td>
-									</tr>
-								))}
-							</tbody>
-						</table>
-					</div>
 				))}
 			</div>
 		</main>
