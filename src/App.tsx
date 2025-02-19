@@ -3,14 +3,15 @@ import Navbar from './components/Navbar';
 import { useState } from 'react';
 import ProductsView from './views/Products';
 import RecipesView from './views/Recipes';
+import MealsView from './views/Meals';
 
 export default function App() {
-	const [currentPageIdx, setCurrentPageIdx] = useState(1);
+	const [currentPageIdx, setCurrentPageIdx] = useState(0);
 
 	const getCurrentPage = () => {
 		switch (currentPageIdx) {
 			case 0:
-				return null;
+				return <MealsView />;
 			case 1:
 				return <RecipesView />;
 			default:
@@ -25,7 +26,9 @@ export default function App() {
 				onPageChange={(newIdx) => setCurrentPageIdx(newIdx)}
 			/>
 
-			{getCurrentPage()}
+			<div className='page-container'>
+				{getCurrentPage()}
+			</div>
 		</div>
 	);
 }

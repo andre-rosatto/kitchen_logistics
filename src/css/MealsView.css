@@ -1,0 +1,18 @@
+.MealsView {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.MealsView .days-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 0.25rem;
+}
+
+.MealsView .day-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}

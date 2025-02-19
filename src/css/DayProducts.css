@@ -1,0 +1,59 @@
+.DayProducts {
+  border: 1px solid var(--primary);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.DayProducts .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--primary);
+  padding: 0.25rem;
+}
+
+.DayProducts .header h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.DayProducts .header label {
+  display: flex;
+  align-items: center;
+  font-size: 0.75rem;
+}
+
+.DayProducts .header input {
+  width: 2rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--background);
+  padding: 0 0.25rem;
+  margin-left: 0.25rem;
+  outline: none;
+}
+
+.DayProducts table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 100%;
+  color: var(--onBackground);
+}
+
+.DayProducts table td {
+  padding: 0.25rem;
+  font-size: 0.75rem;
+}
+
+.DayProducts table thead td {
+  background-color: var(--primary);
+  font-weight: bold;
+  text-align: center;
+}
+
+.DayProducts table tbody tr {
+  background-color: var(--table);
+}
+
+.DayProducts table tbody tr:nth-child(even) {
+  background-color: var(--tableEven);
+}

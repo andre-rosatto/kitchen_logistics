@@ -1,0 +1,36 @@
+.WeekProducts {
+  border: 1px solid var(--primary);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.WeekProducts .header {
+  background-color: var(--primary);
+  padding: 0.25rem;
+}
+
+.WeekProducts .header h3 {
+  text-align: center;
+  margin: 0;
+}
+
+.WeekProducts .results-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.WeekProducts .result-container {
+  display: flex;
+  justify-content: space-between;
+  color: var(--onBackground);
+  padding: 0.5rem 1.5rem 0.5rem 0.5rem;
+  background-color: var(--table);
+}
+
+.WeekProducts .result-container:nth-child(even) {
+  background-color: var(--tableEven);
+}
+
+.WeekProducts .result-container p {
+  margin: 0;
+}

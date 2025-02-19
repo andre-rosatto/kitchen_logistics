@@ -1,0 +1,55 @@
+.MealsItem {
+  border: 1px solid var(--primary);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.MealsItem table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.MealsItem table td {
+  padding: 0.25rem;
+}
+
+.MealsItem table thead td {
+  background-color: var(--primary);
+  font-weight: bold;
+  text-align: center;
+}
+
+.MealsItem table tbody tr {
+  background-color: var(--table);
+}
+
+.MealsItem table tbody tr:nth-child(even) {
+  background-color: var(--tableEven);
+}
+
+.MealsItem table tbody tr.meal-heading {
+  background-color: var(--accentPrimary);
+  font-weight: bold;
+}
+
+.MealsItem button {
+  border: 1px solid var(--onPrimary);
+  border-radius: 0.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+.MealsItem button.buttonGood {
+  background-color: var(--buttonGood);
+}
+
+.MealsItem button.buttonBad {
+  background-color: var(--buttonBad);
+}
+
+.MealsItem button img {
+  display: block;
+  width: 100%;
+}

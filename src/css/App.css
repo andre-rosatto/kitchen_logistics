@@ -1,5 +1,8 @@
 .App {
   width: 100%;
-  max-width: 1024px;
-  margin: auto;
+}
+
+.App .page-container {
+  display: flex;
+  justify-content: center;
 }
