@@ -19,7 +19,6 @@ export default function RecipesView() {
 		let ignore = false;
 		setLoading(true);
 		let nextProducts: Product[] = [];
-		let nextRecipes: Recipe[] = [];
 		const fetchRecipes = async () => {
 			const products = await fetchProductsData();
 			if (ignore) return;
@@ -31,19 +30,25 @@ export default function RecipesView() {
 
 			const recipes = await fetchData();
 			if (ignore) return;
-			nextRecipes = recipes.map((recipe: any) => ({
-				id: recipe.id,
-				name: recipe.data().name,
-				products: recipe.data().products.map((item: any) => {
-					const product = nextProducts.find((p: Product) => p.id === item.product.id)!;
-					return {
-						product: {
-							id: product.id,
-						},
-						amount: item.amount,
+			const nextRecipes: Recipe[] = recipes.map((recipe: any) => {
+				const products: Recipe['products'] = [];
+				recipe.data().products.forEach((item: any) => {
+					const prod = nextProducts.find((p: Product) => p.id === item.product.id);
+					if (prod) {
+						products.push({
+							product: {
+								id: prod.id,
+							},
+							amount: item.amount,
+						});
 					}
-				})
-			}));
+				});
+				return {
+					id: recipe.id,
+					name: recipe.data().name,
+					products: products,
+				}
+			});
 			setProducts(nextProducts);
 			setRecipes(nextRecipes);
 		}

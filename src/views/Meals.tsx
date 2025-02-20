@@ -35,34 +35,25 @@ export default function MealsView() {
 
 			const recipes = await fetchRecipes();
 			if (ignore) return;
-			const nextRecipes: Recipe[] = recipes.map((recipe: any) => ({
-				id: recipe.id,
-				name: recipe.data().name,
-				products: recipe.data().products.map((item: any) => {
-					const product = nextProducts.find((p: Product) => p.id === item.product.id)!;
-					if (product) {
-						return {
+			const nextRecipes: Recipe[] = recipes.map((recipe: any) => {
+				const products: Recipe['products'] = [];
+				recipe.data().products.forEach((item: any) => {
+					const prod = nextProducts.find((p: Product) => p.id === item.product.id);
+					if (prod) {
+						products.push({
 							product: {
-								id: product.id,
+								id: prod.id,
 							},
 							amount: item.amount,
-						}
-					} else {
-						return {
-							product: {
-								id: null,
-							},
-							amount: null,
-						}
+						});
 					}
-				})
-			}));
-
-			const filtered = nextRecipes.filter(r => r.products.filter(p => p.amount !== null));
-			// console.log('nextRecipes:', nextRecipes.length);
-			// console.log('filtered:', filtered.length);
-			console.log(nextRecipes[5]);
-			console.log(filtered[5]);
+				});
+				return {
+					id: recipe.id,
+					name: recipe.data().name,
+					products: products,
+				}
+			});
 
 
 
