@@ -23,7 +23,9 @@
   font-size: 0.75rem;
 }
 
-.DayProducts .header input {
+.DayProducts .header .amount-input {
+  background-color: var(--onBackground);
+  color: black;
   width: 2rem;
   border-radius: 0.25rem;
   border: 1px solid var(--background);

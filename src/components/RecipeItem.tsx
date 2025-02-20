@@ -6,6 +6,7 @@ import { Recipe } from '../models/Recipe';
 import { Product } from '../models/Product';
 import { useState } from 'react';
 import '../css/RecipeItem.css';
+import NumberInput from './NumberInput';
 
 interface RecipeItemProps {
 	recipe: Recipe;
@@ -44,6 +45,11 @@ export default function RecipeItem({
 		}
 	}
 
+	const handleAddClick = () => {
+		onAddProduct(newProductId, parseFloat(newProductAmount));
+		setNewProductAmount('');
+	}
+
 	return (
 		<div className='RecipeItem'>
 			<div className='header'>
@@ -68,10 +74,10 @@ export default function RecipeItem({
 
 				<label>
 					Quantidade:
-					<input
+					<NumberInput
 						className='amount'
-						value={newProductAmount}
-						onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewProductAmount(e.currentTarget.value)}
+						clearOnChange
+						onChange={newValue => setNewProductAmount(newValue.toString())}
 					/>
 					{products.find(product => product.id === newProductId)!.unit}
 				</label>
@@ -80,7 +86,7 @@ export default function RecipeItem({
 					className='buttonGood'
 					disabled={newProductAmount.trim().length === 0}
 					title='Adicionar produto'
-					onClick={() => onAddProduct(newProductId, parseFloat(newProductAmount))}
+					onClick={handleAddClick}
 				>
 					<img src={addIcon} />
 				</button>
@@ -106,9 +112,9 @@ export default function RecipeItem({
 								/>
 							</td>
 							<td>
-								<TableInput
+								<NumberInput
 									value={item.amount.toString()}
-									onChange={newValue => onAmountChange(idx, parseFloat(newValue))}
+									onChange={newValue => onAmountChange(idx, newValue)}
 								/>
 							</td>
 							<td>{products.find(p => p.id === item.product.id)!.unit}</td>

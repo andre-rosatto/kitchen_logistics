@@ -3,6 +3,7 @@ import '../css/DayProducts.css';
 import { Meals } from '../models/Meals';
 import { Product } from '../models/Product';
 import { Recipe } from '../models/Recipe';
+import NumberInput from './NumberInput';
 
 interface DayProductsProps {
 	meals: Meals,
@@ -37,27 +38,17 @@ export default function DayProducts({ meals, recipes, products, onAmountChange }
 		});
 	});
 
-	const handleMultiplierChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		let value = e.currentTarget.value.replace(/[\D]+/g, '');
-		setMultiplier(value);
-	}
-
-	const handleMultiplierBlur = () => {
-		const value = multiplier.trim().length > 0 ? parseInt(multiplier) : 1;
-		onAmountChange(value);
-		setMultiplier(value.toString());
-	}
-
 	return (
 		<div className='DayProducts'>
 			<div className='header'>
 				<h3>Produtos</h3>
 				<label>
 					Quant.:
-					<input
+					<NumberInput
+						className='amount-input'
 						value={multiplier}
-						onChange={handleMultiplierChange}
-						onBlur={handleMultiplierBlur}
+						isFloat={false}
+						onChange={newValue => setMultiplier(newValue.toString())}
 					/>
 				</label>
 			</div>
