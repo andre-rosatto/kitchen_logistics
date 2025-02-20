@@ -40,14 +40,31 @@ export default function MealsView() {
 				name: recipe.data().name,
 				products: recipe.data().products.map((item: any) => {
 					const product = nextProducts.find((p: Product) => p.id === item.product.id)!;
-					return {
-						product: {
-							id: product.id,
-						},
-						amount: item.amount,
+					if (product) {
+						return {
+							product: {
+								id: product.id,
+							},
+							amount: item.amount,
+						}
+					} else {
+						return {
+							product: {
+								id: null,
+							},
+							amount: null,
+						}
 					}
 				})
 			}));
+
+			const filtered = nextRecipes.filter(r => r.products.filter(p => p.amount !== null));
+			// console.log('nextRecipes:', nextRecipes.length);
+			// console.log('filtered:', filtered.length);
+			console.log(nextRecipes[5]);
+			console.log(filtered[5]);
+
+
 
 			const meals = await fetchData();
 			if (ignore) return;
