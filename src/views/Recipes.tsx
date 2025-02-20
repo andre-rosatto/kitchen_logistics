@@ -80,10 +80,6 @@ export default function RecipesView() {
 		setLoading(true);
 		const nextRecipe = { ...recipe };
 		nextRecipe.products[productIdx].product.id = selectedId;
-		console.log(selectedId);
-
-		console.log(nextRecipe);
-
 		await updateItem(recipe.id, nextRecipe);
 		setRecipes(recipes => recipes.map(r => r.id !== nextRecipe.id ? r : nextRecipe));
 		setLoading(false);

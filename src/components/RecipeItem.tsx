@@ -6,6 +6,7 @@ import { Recipe } from '../models/Recipe';
 import { Product } from '../models/Product';
 import { useState } from 'react';
 import '../css/RecipeItem.css';
+import { Converter } from '../utils/Converter';
 
 interface RecipeItemProps {
 	recipe: Recipe;
@@ -72,6 +73,7 @@ export default function RecipeItem({
 						className='amount'
 						value={newProductAmount}
 						onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewProductAmount(e.currentTarget.value)}
+						onBlur={() => setNewProductAmount(Converter.strToFloat(newProductAmount).toString())}
 					/>
 					{products.find(product => product.id === newProductId)!.unit}
 				</label>
@@ -80,7 +82,7 @@ export default function RecipeItem({
 					className='buttonGood'
 					disabled={newProductAmount.trim().length === 0}
 					title='Adicionar produto'
-					onClick={() => onAddProduct(newProductId, parseFloat(newProductAmount))}
+					onClick={() => onAddProduct(newProductId, Converter.strToFloat(newProductAmount))}
 				>
 					<img src={addIcon} />
 				</button>
@@ -108,7 +110,8 @@ export default function RecipeItem({
 							<td>
 								<TableInput
 									value={item.amount.toString()}
-									onChange={newValue => onAmountChange(idx, parseFloat(newValue))}
+									converterFunction={Converter.strToFloat}
+									onChange={newValue => onAmountChange(idx, Converter.strToFloat(newValue))}
 								/>
 							</td>
 							<td>{products.find(p => p.id === item.product.id)!.unit}</td>

@@ -1,12 +1,18 @@
 import { useState } from "react";
 import '../css/TableInput.css';
+import { Converter } from "../utils/Converter";
 
 interface TableInputProps {
 	value: string;
+	converterFunction?: typeof Converter.strToFloat;
 	onChange: (newValue: string) => void;
 }
 
-export default function TableInput({ value, onChange }: TableInputProps) {
+export default function TableInput({
+	value,
+	converterFunction,
+	onChange
+}: TableInputProps) {
 	const [oldValue, setOldValue] = useState(value);
 	const [newValue, setNewValue] = useState(value);
 
@@ -19,14 +25,10 @@ export default function TableInput({ value, onChange }: TableInputProps) {
 	}
 
 	const handleBlur = (value: string) => {
-		const trimmedValue = value.trim();
-		if (trimmedValue.length > 0 && trimmedValue !== oldValue) {
-			onChange(trimmedValue);
-			setOldValue(trimmedValue);
-			setNewValue(trimmedValue);
-		} else {
-			setNewValue(oldValue);
-		}
+		const formattedValue = converterFunction ? converterFunction(value).toString() : value.trim();
+		onChange(formattedValue);
+		setOldValue(formattedValue);
+		setNewValue(formattedValue);
 	}
 
 	return (

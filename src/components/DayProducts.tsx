@@ -3,6 +3,7 @@ import '../css/DayProducts.css';
 import { Meals } from '../models/Meals';
 import { Product } from '../models/Product';
 import { Recipe } from '../models/Recipe';
+import { Converter } from '../utils/Converter';
 
 interface DayProductsProps {
 	meals: Meals,
@@ -29,10 +30,10 @@ export default function DayProducts({ meals, recipes, products, onAmountChange }
 			if (!item) {
 				items.push({
 					id: prod.id,
-					amount: product.amount * (multiplier.trim().length > 0 ? parseInt(multiplier) : 1),
+					amount: product.amount * Converter.strToInt(multiplier),
 				})
 			} else {
-				item.amount += product.amount * (multiplier.trim().length > 0 ? parseInt(multiplier) : 1);
+				item.amount += product.amount * Converter.strToInt(multiplier);
 			}
 		});
 	});
@@ -43,7 +44,7 @@ export default function DayProducts({ meals, recipes, products, onAmountChange }
 	}
 
 	const handleMultiplierBlur = () => {
-		const value = multiplier.trim().length > 0 ? parseInt(multiplier) : 1;
+		const value = Converter.strToInt(multiplier);
 		onAmountChange(value);
 		setMultiplier(value.toString());
 	}
