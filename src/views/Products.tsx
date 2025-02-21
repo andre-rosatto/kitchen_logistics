@@ -12,6 +12,7 @@ export default function ProductsView() {
 	const [loading, setLoading] = useState(true);
 	const [newProduct, setNewProduct] = useState('');
 	const [newUnit, setNewUnit] = useState('');
+	const [newX1000, setNewX1000] = useState('');
 	const [products, setProducts] = useState<Product[]>([]);
 	const db = useFirebase();
 
@@ -36,6 +37,7 @@ export default function ProductsView() {
 		const data = {
 			name: newProduct.trim(),
 			unit: newUnit.trim(),
+			x1000: newX1000.trim(),
 		};
 		const product = await ProductController.create(db, data);
 		setProducts(products => [product, ...products]);
@@ -56,6 +58,7 @@ export default function ProductsView() {
 		await ProductController.update(db, productId, {
 			name: newValue.name.trim(),
 			unit: newValue.unit.trim(),
+			x1000: newValue.x1000.trim(),
 		});
 		setProducts(products => products.map(p => p.id !== productId ? p : newValue));
 		setLoading(false);
@@ -86,6 +89,15 @@ export default function ProductsView() {
 						/>
 					</label>
 
+					<label>
+						Unid. (x1000):
+						<input
+							className='input-small'
+							value={newX1000}
+							onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewX1000(e.target.value)}
+						/>
+					</label>
+
 					<button
 						className='buttonGood'
 						disabled={newProduct.trim().length === 0}
@@ -101,6 +113,7 @@ export default function ProductsView() {
 						<tr>
 							<th>Produto</th>
 							<th>Unidade</th>
+							<th>x1000</th>
 							<th></th>
 						</tr>
 					</thead>
@@ -118,6 +131,13 @@ export default function ProductsView() {
 									<TableInput
 										value={product.unit}
 										onChange={(newValue) => handleProductChange(product.id, { ...product, unit: newValue })}
+									/>
+								</td>
+
+								<td>
+									<TableInput
+										value={product.x1000 ?? ''}
+										onChange={(newValue) => handleProductChange(product.id, { ...product, x1000: newValue })}
 									/>
 								</td>
 

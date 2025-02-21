@@ -51,8 +51,12 @@
   align-items: center;
 }
 
+.ProductsView .table .add-bar label {
+  display: flex;
+  flex-direction: column;
+}
+
 .ProductsView .table .add-bar input {
-  margin-left: 0.25rem;
   padding: 0.2rem 0.2rem;
   border-radius: 0.25rem;
   border: 1px solid var(--onPrimary);
@@ -86,5 +90,15 @@
 }
 
 .ProductsView .table tbody td {
+  padding: 0.25rem 0.5rem;
+}
+
+.ProductsView .table tbody td:nth-child(2) input {
+  width: 4rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.ProductsView .table tbody td:nth-child(3) input {
+  width: 4rem;
   padding: 0.25rem 0.5rem;
 }

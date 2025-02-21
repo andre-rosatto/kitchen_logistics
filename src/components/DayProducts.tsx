@@ -49,6 +49,15 @@ export default function DayProducts({ meals, recipes, products, onAmountChange }
 		setMultiplier(value.toString());
 	}
 
+	const getAmountWithUnit = (item: ProductItem, products: Product[]) => {
+		const product = products.find(p => p.id === item.id)!;
+		if (item.amount > 1000 && product.x1000.length > 0) {
+			return `${Math.round((item.amount / 1000 + Number.EPSILON) * 100) / 100} ${product.x1000}`;
+		} else {
+			return `${item.amount} ${product.unit}`;
+		}
+	}
+
 	return (
 		<div className='DayProducts'>
 			<div className='header'>
@@ -70,7 +79,7 @@ export default function DayProducts({ meals, recipes, products, onAmountChange }
 								key={item.id}
 							>
 								<td>{products.find(p => p.id === item.id)!.name}</td>
-								<td>{item.amount} {products.find(p => p.id === item.id)!.unit}</td>
+								<td>{getAmountWithUnit(item, products)}</td>
 							</tr>
 						))}
 				</tbody>

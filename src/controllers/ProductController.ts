@@ -13,6 +13,7 @@ export default class ProductController {
 					id: doc.id,
 					name: doc.data().name,
 					unit: doc.data().unit,
+					x1000: doc.data().x1000 ?? '',
 				});
 			}
 		});
@@ -25,6 +26,7 @@ export default class ProductController {
 			id: result.id,
 			name: data.name,
 			unit: data.unit,
+			x1000: data.x1000 ?? '',
 		});
 	}
 

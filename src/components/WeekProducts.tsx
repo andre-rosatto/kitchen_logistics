@@ -35,6 +35,15 @@ export default function WeekProducts({ meals, recipes, products }: WeekProducts)
 		});
 	});
 
+	const getAmountWithUnit = (item: ProductItem, products: Product[]) => {
+		const product = products.find(p => p.id === item.id)!;
+		if (item.amount > 1000 && product.x1000.length > 0) {
+			return `${Math.round((item.amount / 1000 + Number.EPSILON) * 100) / 100} ${product.x1000}`;
+		} else {
+			return `${item.amount} ${product.unit}`;
+		}
+	}
+
 	return (
 		<div className='WeekProducts'>
 			<div className='header'>
@@ -48,7 +57,7 @@ export default function WeekProducts({ meals, recipes, products }: WeekProducts)
 						className='result-container'
 					>
 						<p>{products.find(p => p.id === item.id)!.name}</p>
-						<p>{item.amount} {products.find(p => p.id === item.id)!.unit}</p>
+						<p>{getAmountWithUnit(item, products)}</p>
 					</div>
 				))}
 			</div>
