@@ -8,6 +8,9 @@ import { Meals } from '../models/Meals';
 import MealsItem from '../components/MealsItem';
 import DayProducts from '../components/DayProducts';
 import WeekProducts from '../components/WeekProducts';
+import ProductController from '../controllers/ProductController';
+import RecipeController from '../controllers/RecipeController';
+import MealsController from '../controllers/MealsController';
 
 type MealNames = 'lunch' | 'dinner';
 
@@ -16,70 +19,23 @@ export default function MealsView() {
 	const [products, setProducts] = useState<Product[]>([]);
 	const [recipes, setRecipes] = useState<Recipe[]>([]);
 	const [meals, setMeals] = useState<Meals[]>([]);
-	const { fetchData: fetchProducts } = useFirebase('products');
-	const { fetchData: fetchRecipes } = useFirebase('recipes');
-	const { fetchData, updateItem } = useFirebase('meals');
+	const db = useFirebase();
 
 	useEffect(() => {
 		let ignore = false;
 		setLoading(true);
 
 		const fetchMeals = async () => {
-			const products = await fetchProducts();
+			const nextProducts = await ProductController.fetchAll(db);
 			if (ignore) return;
-			const nextProducts: Product[] = products.map((product: any) => ({
-				id: product.id,
-				name: product.data().name,
-				unit: product.data().unit,
-			}));
-
-			const recipes = await fetchRecipes();
+			const nextRecipes = await RecipeController.fetchAll(db, nextProducts);
 			if (ignore) return;
-			const nextRecipes: Recipe[] = recipes.map((recipe: any) => {
-				const products: Recipe['products'] = [];
-				recipe.data().products.forEach((item: any) => {
-					const prod = nextProducts.find((p: Product) => p.id === item.product.id);
-					if (prod) {
-						products.push({
-							product: {
-								id: prod.id,
-							},
-							amount: item.amount,
-						});
-					}
-				});
-				return {
-					id: recipe.id,
-					name: recipe.data().name,
-					products: products,
-				}
-			});
-
-
-
-			const meals = await fetchData();
+			const nextMeals = await MealsController.fetchAll(db, nextRecipes);
 			if (ignore) return;
-			const nextMeals: Meals[] = meals.map((meal: any) => ({
-				id: meal.id,
-				day: meal.data().day,
-				amount: meal.data().amount,
-				lunch: meal.data().lunch.map((item: any) => {
-					const recipe = nextRecipes.find((r: Recipe) => r.id === item)!;
-					return recipe.id;
-				}),
-				dinner: meal.data().dinner.map((item: any) => {
-					const recipe = nextRecipes.find((r: Recipe) => r.id === item)!;
-					return recipe.id;
-				}),
-			}));
-			nextMeals.sort((a, b) => a.day - b.day);
-
 			setProducts(nextProducts);
 			setRecipes(nextRecipes);
 			setMeals(nextMeals);
-			setLoading(false);
 		}
-
 		fetchMeals().then(() => setLoading(false));
 		return () => {
 			ignore = true;
@@ -94,7 +50,7 @@ export default function MealsView() {
 		} else {
 			nextMeals[mealsIdx].dinner.unshift(recipes[0].id);
 		}
-		await updateItem(nextMeals[mealsIdx].id, nextMeals[mealsIdx]);
+		await MealsController.update(db, nextMeals[mealsIdx].id, nextMeals[mealsIdx]);
 		setMeals(nextMeals);
 		setLoading(false);
 	}
@@ -107,7 +63,7 @@ export default function MealsView() {
 		} else {
 			nextMeals[mealsIdx].dinner[recipeIdx] = newId;
 		}
-		await updateItem(nextMeals[mealsIdx].id, nextMeals[mealsIdx]);
+		await MealsController.update(db, nextMeals[mealsIdx].id, nextMeals[mealsIdx]);
 		setMeals(nextMeals);
 		setLoading(false);
 	}
@@ -120,7 +76,7 @@ export default function MealsView() {
 		} else {
 			nextMeals[mealsIdx].dinner.splice(recipeIdx, 1);
 		}
-		await updateItem(nextMeals[mealsIdx].id, nextMeals[mealsIdx]);
+		await MealsController.update(db, nextMeals[mealsIdx].id, nextMeals[mealsIdx]);
 		setMeals(nextMeals);
 		setLoading(false);
 	}
@@ -129,7 +85,7 @@ export default function MealsView() {
 		setLoading(true);
 		const nextMeals = [...meals];
 		nextMeals[mealIdx].amount = newAmount;
-		await updateItem(nextMeals[mealIdx].id, nextMeals[mealIdx]);
+		await MealsController.update(db, nextMeals[mealIdx].id, nextMeals[mealIdx]);
 		setLoading(false);
 	}
 

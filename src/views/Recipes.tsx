@@ -6,49 +6,23 @@ import { Recipe } from "../models/Recipe";
 import { Product } from "../models/Product";
 import useFirebase from "../hooks/useFirebase";
 import RecipeItem from "../components/RecipeItem";
+import ProductController from "../controllers/ProductController";
+import RecipeController from "../controllers/RecipeController";
 
 export default function RecipesView() {
 	const [loading, setLoading] = useState(false);
 	const [newRecipe, setNewRecipe] = useState('');
 	const [products, setProducts] = useState<Product[]>([]);
 	const [recipes, setRecipes] = useState<Recipe[]>([]);
-	const { fetchData, addData, updateItem, deleteItem } = useFirebase('recipes');
-	const { fetchData: fetchProductsData } = useFirebase('products');
+	const db = useFirebase();
 
 	useEffect(() => {
 		let ignore = false;
 		setLoading(true);
-		let nextProducts: Product[] = [];
 		const fetchRecipes = async () => {
-			const products = await fetchProductsData();
+			const nextProducts = await ProductController.fetchAll(db);
+			const nextRecipes = await RecipeController.fetchAll(db, nextProducts);
 			if (ignore) return;
-			nextProducts = products.map((product: any) => ({
-				id: product.id,
-				name: product.data().name,
-				unit: product.data().unit,
-			}));
-
-			const recipes = await fetchData();
-			if (ignore) return;
-			const nextRecipes: Recipe[] = recipes.map((recipe: any) => {
-				const products: Recipe['products'] = [];
-				recipe.data().products.forEach((item: any) => {
-					const prod = nextProducts.find((p: Product) => p.id === item.product.id);
-					if (prod) {
-						products.push({
-							product: {
-								id: prod.id,
-							},
-							amount: item.amount,
-						});
-					}
-				});
-				return {
-					id: recipe.id,
-					name: recipe.data().name,
-					products: products,
-				}
-			});
 			setProducts(nextProducts);
 			setRecipes(nextRecipes);
 		}
@@ -56,7 +30,7 @@ export default function RecipesView() {
 		return () => {
 			ignore = true;
 		}
-	}, []);
+	}, [db]);
 
 	const handleAddRecipe = async () => {
 		setLoading(true);
@@ -64,10 +38,8 @@ export default function RecipesView() {
 			name: newRecipe.trim(),
 			products: [] as unknown as Recipe["products"],
 		};
-		const recipe = await addData(data);
+		const recipe = await RecipeController.create(db, data);
 		setNewRecipe('');
-		console.log(recipe);
-
 		setRecipes(recipes => [{
 			id: recipe.id,
 			name: data.name,
@@ -76,11 +48,18 @@ export default function RecipesView() {
 		setLoading(false);
 	}
 
+	const handleDeleteRecipe = async (recipe: Recipe) => {
+		setLoading(true);
+		setRecipes(recipes => recipes.filter(r => r.id !== recipe.id));
+		await RecipeController.delete(db, recipe);
+		setLoading(false);
+	}
+
 	const handleSelect = async (recipe: Recipe, productIdx: number, selectedId: string) => {
 		setLoading(true);
 		const nextRecipe = { ...recipe };
-		nextRecipe.products[productIdx].product.id = selectedId;
-		await updateItem(recipe.id, nextRecipe);
+		nextRecipe.products[productIdx].productId = selectedId;
+		await RecipeController.update(db, recipe.id, nextRecipe);
 		setRecipes(recipes => recipes.map(r => r.id !== nextRecipe.id ? r : nextRecipe));
 		setLoading(false);
 	}
@@ -89,7 +68,7 @@ export default function RecipesView() {
 		setLoading(true);
 		const nextRecipe = { ...recipe };
 		nextRecipe.products[productIdx].amount = newAmount;
-		await updateItem(recipe.id, nextRecipe);
+		await RecipeController.update(db, recipe.id, nextRecipe);
 		setRecipes(recipes => recipes.map(r => r.id !== nextRecipe.id ? r : nextRecipe));
 		setLoading(false);
 	}
@@ -99,7 +78,7 @@ export default function RecipesView() {
 		const nextRecipe = { ...recipe };
 		nextRecipe.products.splice(productIdx, 1);
 		setRecipes(recipes => recipes.map(r => r.id !== recipe.id ? r : nextRecipe));
-		await updateItem(recipe.id, nextRecipe);
+		await RecipeController.update(db, recipe.id, nextRecipe);
 		setLoading(false);
 	}
 
@@ -107,18 +86,11 @@ export default function RecipesView() {
 		setLoading(true);
 		const nextRecipe = { ...recipe };
 		nextRecipe.products.unshift({
-			product: { id: productId },
+			productId: productId,
 			amount: productAmount,
 		});
-		await updateItem(recipe.id, nextRecipe);
+		await RecipeController.update(db, recipe.id, nextRecipe);
 		setRecipes(recipes => recipes.map(r => r.id !== nextRecipe.id ? r : nextRecipe));
-		setLoading(false);
-	}
-
-	const handleDeleteRecipe = async (recipe: Recipe) => {
-		setLoading(true);
-		setRecipes(recipes => recipes.filter(r => r.id !== recipe.id));
-		await deleteItem(recipe.id);
 		setLoading(false);
 	}
 

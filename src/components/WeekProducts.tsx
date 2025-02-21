@@ -21,7 +21,7 @@ export default function WeekProducts({ meals, recipes, products }: WeekProducts)
 		mergedMeals.forEach(recipeId => {
 			const recipe = recipes.find(r => r.id === recipeId)!;
 			recipe.products.forEach(product => {
-				const prod = products.find(p => p.id === product.product.id)!;
+				const prod = products.find(p => p.id === product.productId)!;
 				const item = items.find(i => i.id === prod.id);
 				if (!item) {
 					items.push({

@@ -33,7 +33,7 @@ export default function RecipeItem({
 	if (!recipe || !products) return null;
 
 	const handleDelete = (productIdx: number) => {
-		const product = products.find(p => p.id === recipe.products[productIdx].product.id)!;
+		const product = products.find(p => p.id === recipe.products[productIdx].productId)!;
 		if (confirm(`Tem certeza de que quer excluir este produto?\n${product.name} - ${recipe.products[productIdx].amount}${product.unit}`)) {
 			onDeleteProduct(productIdx);
 		}
@@ -98,12 +98,12 @@ export default function RecipeItem({
 				</thead>
 				<tbody>
 					{recipe.products.map((item, idx) => (
-						<tr key={idx + recipe.id + item.product.id}>
+						<tr key={idx + recipe.id + item.productId}>
 							<td>
 								<TableSelect
 									titles={products.map(product => product.name)}
 									ids={products.map(product => product.id)}
-									value={item.product.id}
+									value={item.productId}
 									onSelect={(id) => onSelect(idx, id)}
 								/>
 							</td>
@@ -114,7 +114,7 @@ export default function RecipeItem({
 									onChange={newValue => onAmountChange(idx, Converter.strToFloat(newValue))}
 								/>
 							</td>
-							<td>{products.find(p => p.id === item.product.id)!.unit}</td>
+							<td>{products.find(p => p.id === item.productId)?.unit ?? ''}</td>
 							<td>
 								<button
 									className='buttonBad'

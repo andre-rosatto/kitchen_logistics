@@ -1,8 +1,7 @@
 import { initializeApp } from "firebase/app";
-import { collection, getDocs, getFirestore, addDoc, deleteDoc, doc, updateDoc } from "firebase/firestore";
-import { useCallback } from "react";
+import { getFirestore } from "firebase/firestore";
 
-export default function useFirebase(collectionName: string) {
+export default function useFirebase() {
 	const firebaseConfig = {
 		apiKey: "AIzaSyDoSV2FWJW3nsx1K_xtYIFPwHdi8NW1wnk",
 		authDomain: "kitchen-logistics-fd49c.firebaseapp.com",
@@ -14,22 +13,24 @@ export default function useFirebase(collectionName: string) {
 	const app = initializeApp(firebaseConfig);
 	const db = getFirestore(app);
 
-	const fetchData = useCallback(async () => {
-		const querySnapshot = await getDocs(collection(db!, collectionName));
-		return querySnapshot.docs;
-	}, [collectionName]);
+	return db;
 
-	const addData = useCallback(async (data: any) => {
-		return await addDoc(collection(db, collectionName), data);
-	}, [collectionName]);
+	// const fetchData = useCallback(async () => {
+	// 	const querySnapshot = await getDocs(collection(db!, collectionName));
+	// 	return querySnapshot.docs;
+	// }, [collectionName]);
 
-	const deleteItem = useCallback(async (id: string) => {
-		await deleteDoc(doc(db, collectionName, id));
-	}, [collectionName]);
+	// const addData = useCallback(async (data: any) => {
+	// 	return await addDoc(collection(db, collectionName), data);
+	// }, [collectionName]);
 
-	const updateItem = useCallback(async (id: string, data: any) => {
-		await updateDoc(doc(db, collectionName, id), data);
-	}, [collectionName]);
+	// const deleteItem = useCallback(async (id: string) => {
+	// 	await deleteDoc(doc(db, collectionName, id));
+	// }, [collectionName]);
 
-	return { fetchData, addData, deleteItem, updateItem };
+	// const updateItem = useCallback(async (id: string, data: any) => {
+	// 	await updateDoc(doc(db, collectionName, id), data);
+	// }, [collectionName]);
+
+	// return { fetchData, addData, deleteItem, updateItem };
 }

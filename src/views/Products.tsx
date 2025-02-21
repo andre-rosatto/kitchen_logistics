@@ -6,29 +6,30 @@ import deleteIcon from '../assets/delete_icon.svg';
 import TableInput from '../components/TableInput';
 import useFirebase from '../hooks/useFirebase';
 import LoadingOverlay from '../components/LoadingOverlay';
+import ProductController from '../controllers/ProductController';
 
 export default function ProductsView() {
 	const [loading, setLoading] = useState(true);
 	const [newProduct, setNewProduct] = useState('');
 	const [newUnit, setNewUnit] = useState('');
 	const [products, setProducts] = useState<Product[]>([]);
-	const { fetchData, addData, deleteItem, updateItem } = useFirebase('products');
+	const db = useFirebase();
 
 	useEffect(() => {
 		setLoading(true);
-		fetchData().then(docs => {
-			const nextProducts: Product[] = [];
-			docs.forEach((doc: any) => {
-				nextProducts.push({
-					id: doc.id,
-					name: doc.data().name,
-					unit: doc.data().unit,
-				});
-			});
+		let ignore = false;
+		const fetchProducts = async () => {
+			const nextProducts = await ProductController.fetchAll(db);
+			if (ignore) return;
 			setProducts(nextProducts);
 			setLoading(false);
-		});
-	}, []);
+		}
+		fetchProducts();
+
+		return () => {
+			ignore = true;
+		}
+	}, [db]);
 
 	const handleAddClick = async () => {
 		setLoading(true);
@@ -36,29 +37,23 @@ export default function ProductsView() {
 			name: newProduct.trim(),
 			unit: newUnit.trim(),
 		};
-		const product = await addData(data);
-		setProducts(products => [{
-			id: product.id,
-			name: data.name,
-			unit: data.unit,
-		}, ...products]);
+		const product = await ProductController.create(db, data);
+		setProducts(products => [product, ...products]);
 		setNewProduct('');
 		setNewUnit('');
 		setLoading(false);
 	}
 
 	const handleDeleteClick = async (product: Product) => {
-		if (confirm(`Tem certeza de que quer excluir este produto?\n${product.name} - ${product.unit}`)) {
-			setLoading(true);
-			await deleteItem(product.id);
-			setProducts(products => products.filter(p => p.id !== product.id));
-			setLoading(false);
-		}
+		setLoading(true);
+		await ProductController.delete(db, product);
+		setProducts(products => products.filter(p => p.id !== product.id));
+		setLoading(false);
 	}
 
 	const handleProductChange = async (productId: string, newValue: Product) => {
 		setLoading(true);
-		await updateItem(productId, {
+		await ProductController.update(db, productId, {
 			name: newValue.name.trim(),
 			unit: newValue.unit.trim(),
 		});
