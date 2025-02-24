@@ -19,17 +19,17 @@ body {
 }
 
 /* print */
-/* @media print { */
-:root {
-  --background: transparent;
-  --onBackground: black;
-  --primary: #aaa;
-  --table: transparent;
-  --tableEven: #ddd;
-}
+@media print {
+  :root {
+    --background: transparent;
+    --onBackground: black;
+    --primary: #aaa;
+    --table: transparent;
+    --tableEven: #ddd;
+  }
 
-body {
-  -webkit-print-color-adjust: exact !important;
-  print-color-adjust: exact !important;
+  body {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
 }
-/* } */

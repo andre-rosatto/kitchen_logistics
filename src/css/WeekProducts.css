@@ -36,47 +36,41 @@
 }
 
 /* print */
-/* @media print { */
-.WeekProducts {
-  margin-top: 1rem;
-  border: none;
-  border-radius: 0;
-}
+@media print {
+  .WeekProducts {
+    margin-top: 1rem;
+    border: none;
+    border-radius: 0;
+  }
 
-.WeekProducts .header {
-  background-color: #aaa;
-  border-top: 1px solid black;
-  border-left: 1px solid black;
-  border-right: 1px solid black;
-}
+  .WeekProducts .header {
+    background-color: #aaa;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+  }
 
-.WeekProducts .header h3 {
-  font-size: 1rem;
-}
+  .WeekProducts .header h3 {
+    font-size: 1rem;
+  }
 
-.WeekProducts .header h3 span {
-  /* display: none; */
-}
+  .WeekProducts .results-container {
+    border-bottom: 1px solid var(--onBackground);
+    border-left: 1px solid var(--onBackground);
+    border-right: 1px solid var(--onBackground);
+  }
 
-.WeekProducts .results-container {
-  /* display: flex;
-  flex-direction: column; */
-  border-bottom: 1px solid var(--onBackground);
-  border-left: 1px solid var(--onBackground);
-  border-right: 1px solid var(--onBackground);
-}
+  .WeekProducts .result-container {
+    padding: 0.25rem;
+    padding-right: 1.5rem;
+    font-size: 0.75rem;
+  }
 
-.WeekProducts .result-container {
-  padding: 0.25rem;
-  padding-right: 1.5rem;
-  font-size: 0.75rem;
-}
+  .WeekProducts .result-container p:first-child {
+    margin-right: 1rem;
+  }
 
-.WeekProducts .result-container p:first-child {
-  margin-right: 1rem;
+  .WeekProducts .result-container p:last-child {
+    text-align: end;
+  }
 }
-
-.WeekProducts .result-container p:last-child {
-  text-align: end;
-}
-/* } */

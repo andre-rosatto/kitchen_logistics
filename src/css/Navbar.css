@@ -23,8 +23,8 @@
 }
 
 /* print */
-/* @media print { */
-.Navbar {
-  display: none;
+@media print {
+  .Navbar {
+    display: none;
+  }
 }
-/* } */

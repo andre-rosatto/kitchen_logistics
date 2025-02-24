@@ -18,18 +18,17 @@
 }
 
 /* print */
-/* @media print { */
-.MealsView {
-  gap: 0;
-  /* flex-direction: row; */
-}
+@media print {
+  .MealsView {
+    gap: 0;
+  }
 
-.MealsView .days-container {
-  gap: 0;
-  justify-content: flex-start;
-}
+  .MealsView .days-container {
+    gap: 0;
+    justify-content: flex-start;
+  }
 
-.MealsView .day-container {
-  gap: 0;
+  .MealsView .day-container {
+    gap: 0;
+  }
 }
-/* } */

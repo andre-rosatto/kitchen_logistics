@@ -62,24 +62,24 @@
 }
 
 /* print */
-/* @media print { */
-.DayProducts {
-  border-right: 1px solid var(--onBackground);
-  border-bottom: 1px solid var(--onBackground);
-  border-left: 1px solid var(--onBackground);
-  border-top: none;
-  border-radius: 0;
-}
+@media print {
+  .DayProducts {
+    border-right: 1px solid var(--onBackground);
+    border-bottom: 1px solid var(--onBackground);
+    border-left: 1px solid var(--onBackground);
+    border-top: none;
+    border-radius: 0;
+  }
 
-.DayProducts .header {
-  display: none;
-}
+  .DayProducts .header {
+    display: none;
+  }
 
-.DayProducts table tbody td:first-child {
-  margin-right: 1rem;
-}
+  .DayProducts table tbody td:first-child {
+    margin-right: 1rem;
+  }
 
-.DayProducts table tbody td:last-child {
-  text-align: end;
+  .DayProducts table tbody td:last-child {
+    text-align: end;
+  }
 }
-/* } */

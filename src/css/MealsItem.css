@@ -59,19 +59,19 @@
 }
 
 /* print */
-/* @media print { */
-.MealsItem {
-  border: none;
-  border-radius: 0;
-}
+@media print {
+  .MealsItem {
+    border: none;
+    border-radius: 0;
+  }
 
-.MealsItem table thead td {
-  border-top: 1px solid var(--onBackground);
-  border-left: 1px solid var(--onBackground);
-  border-right: 1px solid var(--onBackground);
-}
+  .MealsItem table thead td {
+    border-top: 1px solid var(--onBackground);
+    border-left: 1px solid var(--onBackground);
+    border-right: 1px solid var(--onBackground);
+  }
 
-.MealsItem table tbody {
-  display: none;
+  .MealsItem table tbody {
+    display: none;
+  }
 }
-/* } */
