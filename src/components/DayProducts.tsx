@@ -4,6 +4,7 @@ import { Meals } from '../models/Meals';
 import { Product } from '../models/Product';
 import { Recipe } from '../models/Recipe';
 import { Converter } from '../utils/Converter';
+import TableInput from './TableInput';
 
 interface DayProductsProps {
 	meals: Meals,
@@ -38,15 +39,20 @@ export default function DayProducts({ meals, recipes, products, onAmountChange }
 		});
 	});
 
-	const handleMultiplierChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		let value = e.currentTarget.value.replace(/[\D]+/g, '');
-		setMultiplier(value);
-	}
+	// const handleMultiplierChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	// 	let value = e.currentTarget.value.replace(/[\D]+/g, '');
+	// 	setMultiplier(value);
+	// }
 
-	const handleMultiplierBlur = () => {
-		const value = Converter.strToInt(multiplier);
-		onAmountChange(value);
-		setMultiplier(value.toString());
+	// const handleMultiplierBlur = () => {
+	// 	const value = Converter.strToInt(multiplier);
+	// 	onAmountChange(value);
+	// 	setMultiplier(value.toString());
+	// }
+
+	const handleMultiplierChange = (newValue: string) => {
+		onAmountChange(Converter.strToInt(multiplier));
+		setMultiplier(newValue);
 	}
 
 	const getAmountWithUnit = (item: ProductItem, products: Product[]) => {
@@ -64,10 +70,16 @@ export default function DayProducts({ meals, recipes, products, onAmountChange }
 				<h3>Produtos</h3>
 				<label>
 					Quant.:
-					<input
+					{/* <input
 						value={multiplier}
 						onChange={handleMultiplierChange}
 						onBlur={handleMultiplierBlur}
+					/> */}
+					<TableInput
+						value={multiplier}
+						className='input'
+						converterFunction={Converter.strToInt}
+						onChange={newValue => handleMultiplierChange(newValue)}
 					/>
 				</label>
 			</div>

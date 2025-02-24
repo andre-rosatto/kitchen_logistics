@@ -6,7 +6,7 @@ export default class RecipeController {
 	private static collectionName = 'recipes';
 
 	static async fetchAll(db: Firestore, products: Product[]): Promise<Recipe[]> {
-		const docs = await getDocs(collection(db, this.collectionName));
+		const docs = await getDocs(collection(db, RecipeController.collectionName));
 		const result: Recipe[] = [];
 		docs.forEach((doc: any) => {
 			if (doc.data().name && doc.data().products) {
@@ -30,7 +30,7 @@ export default class RecipeController {
 	}
 
 	static async create(db: Firestore, data: Omit<Recipe, 'id'>): Promise<Recipe> {
-		const result = await addDoc(collection(db, this.collectionName), data);
+		const result = await addDoc(collection(db, RecipeController.collectionName), data);
 		return ({
 			id: result.id,
 			name: data.name,

@@ -33,6 +33,17 @@
   outline: none;
 }
 
+.DayProducts .header .input {
+  width: 2rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--background);
+  padding: 0 0.25rem;
+  margin-left: 0.25rem;
+  outline: none;
+  background-color: var(--onBackground);
+  color: var(--background);
+}
+
 .DayProducts table {
   border-collapse: collapse;
   width: 100%;

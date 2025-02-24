@@ -6,7 +6,7 @@ export default class MealsController {
 	private static collectionName = 'meals';
 
 	static async fetchAll(db: Firestore, recipes: Recipe[]): Promise<Meals[]> {
-		const docs = await getDocs(collection(db, this.collectionName));
+		const docs = await getDocs(collection(db, MealsController.collectionName));
 		const result: Meals[] = [];
 		docs.forEach((doc: any) => {
 			const lunchIds: string[] = doc.data().lunch.filter((lunchId: string) => recipes.find(recipe => recipe.id === lunchId));
@@ -23,6 +23,6 @@ export default class MealsController {
 	}
 
 	static async update(db: Firestore, id: string, newMeals: Omit<Meals, 'id'>) {
-		await updateDoc(doc(db, this.collectionName, id), newMeals);
+		await updateDoc(doc(db, MealsController.collectionName, id), newMeals);
 	}
 }

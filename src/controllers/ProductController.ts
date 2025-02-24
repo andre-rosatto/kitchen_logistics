@@ -5,7 +5,7 @@ export default class ProductController {
 	private static collectionName = 'products';
 
 	static async fetchAll(db: Firestore): Promise<Product[]> {
-		const docs = await getDocs(collection(db, this.collectionName));
+		const docs = await getDocs(collection(db, ProductController.collectionName));
 		const result: Product[] = [];
 		docs.forEach((doc: any) => {
 			if (doc.data().name && doc.data().unit) {
@@ -21,7 +21,7 @@ export default class ProductController {
 	}
 
 	static async create(db: Firestore, data: Omit<Product, 'id'>): Promise<Product> {
-		const result = await addDoc(collection(db, this.collectionName), data);
+		const result = await addDoc(collection(db, ProductController.collectionName), data);
 		return ({
 			id: result.id,
 			name: data.name,

@@ -11,6 +11,6 @@ export class Converter {
 	}
 
 	static strToInt(value: string, minValue: number = 1): number {
-		return Math.floor(this.strToFloat(value, minValue));
+		return Math.floor(Converter.strToFloat(value, minValue));
 	}
 }
