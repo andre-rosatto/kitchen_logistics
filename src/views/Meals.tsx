@@ -89,6 +89,10 @@ export default function MealsView() {
 		setLoading(false);
 	}
 
+	const handlePrintClick = () => {
+		window.print();
+	}
+
 	return (
 		<main className='MealsView'>
 			{loading && <LoadingOverlay />}
@@ -124,6 +128,11 @@ export default function MealsView() {
 				recipes={recipes}
 				products={products}
 			/>
+
+			<button
+				className='print-button'
+				onClick={handlePrintClick}
+			>Imprimir</button>
 		</main>
 	);
 }

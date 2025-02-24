@@ -17,6 +17,17 @@
   gap: 0.25rem;
 }
 
+.MealsView button.print-button {
+  background-color: var(--primary);
+  padding: 1rem 2rem;
+  margin: 1rem auto;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+}
+
 /* print */
 @media print {
   .MealsView {
@@ -30,5 +41,9 @@
 
   .MealsView .day-container {
     gap: 0;
+  }
+
+  .MealsView button.print-button {
+    display: none;
   }
 }
