@@ -7,7 +7,6 @@ import { Product } from '../models/Product';
 import { useState } from 'react';
 import '../css/RecipeItem.css';
 import { Converter } from '../utils/Converter';
-import RecipeController from '../controllers/RecipeController';
 
 interface RecipeItemProps {
 	recipe: Recipe;
