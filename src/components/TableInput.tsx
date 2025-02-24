@@ -4,12 +4,16 @@ import { Converter } from "../utils/Converter";
 
 interface TableInputProps {
 	value: string;
+	allowEmpty?: boolean;
+	className?: string;
 	converterFunction?: typeof Converter.strToFloat;
 	onChange: (newValue: string) => void;
 }
 
 export default function TableInput({
 	value,
+	allowEmpty = false,
+	className = '',
 	converterFunction,
 	onChange
 }: TableInputProps) {
@@ -25,7 +29,12 @@ export default function TableInput({
 	}
 
 	const handleBlur = (value: string) => {
-		const formattedValue = converterFunction ? converterFunction(value).toString() : value.trim();
+		let formattedValue: string;
+		if (!allowEmpty && value.trim().length === 0) {
+			formattedValue = oldValue;
+		} else {
+			formattedValue = converterFunction ? converterFunction(value).toString() : value.trim();
+		}
 		onChange(formattedValue);
 		setOldValue(formattedValue);
 		setNewValue(formattedValue);
@@ -33,7 +42,7 @@ export default function TableInput({
 
 	return (
 		<input
-			className='TableInput'
+			className={`TableInput ${className}`}
 			value={newValue}
 			onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewValue(e.target.value)}
 			onKeyDown={handleKeyDown}

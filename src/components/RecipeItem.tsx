@@ -7,13 +7,15 @@ import { Product } from '../models/Product';
 import { useState } from 'react';
 import '../css/RecipeItem.css';
 import { Converter } from '../utils/Converter';
+import RecipeController from '../controllers/RecipeController';
 
 interface RecipeItemProps {
 	recipe: Recipe;
 	products: Product[];
 	onAddProduct: (productId: string, productAmount: number) => void;
 	onSelect: (idx: number, selecitedId: string) => void;
-	onAmountChange: (productTdx: number, newValue: number) => void;
+	onNameChange: (newValue: string) => void;
+	onAmountChange: (productIdx: number, newValue: number) => void;
 	onDeleteProduct: (productIdx: number) => void;
 	onDeleteRecipe: () => void;
 }
@@ -23,10 +25,12 @@ export default function RecipeItem({
 	products,
 	onAddProduct,
 	onSelect,
+	onNameChange,
 	onAmountChange,
 	onDeleteProduct,
 	onDeleteRecipe,
 }: RecipeItemProps) {
+	const [recipeName, setRecipeName] = useState(recipe.name);
 	const [newProductId, setNewProductId] = useState<string>(products[0].id);
 	const [newProductAmount, setNewProductAmount] = useState('');
 
@@ -45,10 +49,19 @@ export default function RecipeItem({
 		}
 	}
 
+	const handleRecipeNameChange = (newValue: string) => {
+		setRecipeName(newValue);
+		onNameChange(newValue);
+	}
+
 	return (
 		<div className='RecipeItem'>
 			<div className='header'>
-				<h3>{recipe.name}</h3>
+				<TableInput
+					value={recipeName}
+					className='input'
+					onChange={handleRecipeNameChange}
+				/>
 				<button
 					className='buttonBad'
 					onClick={() => handleDeleteRecipe()}

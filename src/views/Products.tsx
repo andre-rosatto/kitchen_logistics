@@ -123,6 +123,7 @@ export default function ProductsView() {
 								<td>
 									<TableInput
 										value={product.name}
+										allowEmpty
 										onChange={(newValue) => handleProductChange(product.id, { ...product, name: newValue })}
 									/>
 								</td>
@@ -130,6 +131,7 @@ export default function ProductsView() {
 								<td>
 									<TableInput
 										value={product.unit}
+										allowEmpty
 										onChange={(newValue) => handleProductChange(product.id, { ...product, unit: newValue })}
 									/>
 								</td>
@@ -137,6 +139,7 @@ export default function ProductsView() {
 								<td>
 									<TableInput
 										value={product.x1000 ?? ''}
+										allowEmpty
 										onChange={(newValue) => handleProductChange(product.id, { ...product, x1000: newValue })}
 									/>
 								</td>

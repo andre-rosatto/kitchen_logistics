@@ -17,6 +17,18 @@
   margin: 0;
 }
 
+.RecipeItem .header .input {
+  color: var(--onPrimary);
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.RecipeItem .header .input:focus {
+  outline: none;
+  border: 1px solid var(--onPrimary);
+  background-color: var(--onBackground);
+}
+
 .RecipeItem label select {
   margin-left: 0.25rem;
 }

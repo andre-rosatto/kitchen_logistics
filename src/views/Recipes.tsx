@@ -64,6 +64,15 @@ export default function RecipesView() {
 		setLoading(false);
 	}
 
+	const handleNamechange = async (recipe: Recipe, newValue: string) => {
+		setLoading(true);
+		const nextRecipe = { ...recipe };
+		nextRecipe.name = newValue;
+		await RecipeController.update(db, recipe.id, nextRecipe);
+		setRecipes(recipes => recipes.map(r => r.id !== nextRecipe.id ? r : nextRecipe));
+		setLoading(false);
+	}
+
 	const handleAmountChange = async (recipe: Recipe, productIdx: number, newAmount: number) => {
 		setLoading(true);
 		const nextRecipe = { ...recipe };
@@ -126,6 +135,7 @@ export default function RecipesView() {
 						recipe={recipe}
 						products={products}
 						onAddProduct={(productId, productAmount) => handleAddProduct(recipe, productId, productAmount)}
+						onNameChange={newValue => handleNamechange(recipe, newValue)}
 						onAmountChange={(productIdx, newAmount) => handleAmountChange(recipe, productIdx, newAmount)}
 						onDeleteProduct={(productIdx: number) => handleDeleteProduct(recipe, productIdx)}
 						onSelect={(productIdx, selectedId) => handleSelect(recipe, productIdx, selectedId)}
