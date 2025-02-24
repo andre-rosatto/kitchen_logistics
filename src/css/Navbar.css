@@ -21,3 +21,10 @@
   font-weight: bold;
   background-color: var(--accentPrimary);
 }
+
+/* print */
+/* @media print { */
+.Navbar {
+  display: none;
+}
+/* } */

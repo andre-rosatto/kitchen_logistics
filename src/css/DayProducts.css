@@ -10,6 +10,7 @@
   align-items: center;
   background-color: var(--primary);
   padding: 0.25rem;
+  gap: 0.5rem;
 }
 
 .DayProducts .header h3 {
@@ -59,3 +60,26 @@
 .DayProducts table tbody tr:nth-child(even) {
   background-color: var(--tableEven);
 }
+
+/* print */
+/* @media print { */
+.DayProducts {
+  border-right: 1px solid var(--onBackground);
+  border-bottom: 1px solid var(--onBackground);
+  border-left: 1px solid var(--onBackground);
+  border-top: none;
+  border-radius: 0;
+}
+
+.DayProducts .header {
+  display: none;
+}
+
+.DayProducts table tbody td:first-child {
+  margin-right: 1rem;
+}
+
+.DayProducts table tbody td:last-child {
+  text-align: end;
+}
+/* } */

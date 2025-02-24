@@ -32,6 +32,10 @@
   font-weight: bold;
 }
 
+.MealsItem table tbody tr.meal-heading td:first-child {
+  width: 100%;
+}
+
 .MealsItem button {
   border: 1px solid var(--onPrimary);
   border-radius: 0.5rem;
@@ -53,3 +57,21 @@
   display: block;
   width: 100%;
 }
+
+/* print */
+/* @media print { */
+.MealsItem {
+  border: none;
+  border-radius: 0;
+}
+
+.MealsItem table thead td {
+  border-top: 1px solid var(--onBackground);
+  border-left: 1px solid var(--onBackground);
+  border-right: 1px solid var(--onBackground);
+}
+
+.MealsItem table tbody {
+  display: none;
+}
+/* } */

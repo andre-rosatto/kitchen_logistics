@@ -47,7 +47,7 @@ export default function WeekProducts({ meals, recipes, products }: WeekProducts)
 	return (
 		<div className='WeekProducts'>
 			<div className='header'>
-				<h3>Total de produtos da semana</h3>
+				<h3>Total de Produtos da Semana</h3>
 			</div>
 
 			<div className='results-container'>
