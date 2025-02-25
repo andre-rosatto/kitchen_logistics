@@ -34,6 +34,11 @@ export default function RecipesView() {
 	}, [db]);
 
 	const handleAddRecipe = async () => {
+		if (products.find(p => p.name.trim().toLocaleLowerCase() === newRecipe.trim().toLocaleLowerCase())) {
+			if (!confirm(`Já existe uma receita cadastrada como "${newRecipe}".\nAdicionar outra?`)) {
+				return;
+			}
+		}
 		setLoading(true);
 		const data = {
 			name: newRecipe.trim(),

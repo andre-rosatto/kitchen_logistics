@@ -34,6 +34,11 @@ export default function ProductsView() {
 	}, [db]);
 
 	const handleAddClick = async () => {
+		if (products.find(p => p.name.trim().toLocaleLowerCase() === newProduct.trim().toLocaleLowerCase())) {
+			if (!confirm(`Já existe um produto cadastrado como "${newProduct}".\nAdicionar outro?`)) {
+				return;
+			}
+		}
 		setLoading(true);
 		const data = {
 			name: newProduct.trim(),
@@ -98,7 +103,7 @@ export default function ProductsView() {
 					</label>
 
 					<label>
-						Unid. (x1000):
+						x1000:
 						<input
 							className='input-small'
 							value={newX1000}
