@@ -1,6 +1,6 @@
 .TableInput {
   border: 1px solid transparent;
-  border-radius: 0.25rem;
+  border-radius: var(--inputRadius);
   background-color: transparent;
   color: var(--onBackground);
   padding: 0.25rem;

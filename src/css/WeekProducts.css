@@ -1,6 +1,6 @@
 .WeekProducts {
   border: 1px solid var(--primary);
-  border-radius: 0.5rem;
+  border-radius: var(--headerRadius);
   overflow: hidden;
 }
 

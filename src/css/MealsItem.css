@@ -1,6 +1,6 @@
 .MealsItem {
   border: 1px solid var(--primary);
-  border-radius: 0.5rem;
+  border-radius: var(--headerRadius);
   overflow: hidden;
 }
 
@@ -42,7 +42,7 @@
 
 .MealsItem button {
   border: 1px solid var(--onPrimary);
-  border-radius: 0.5rem;
+  border-radius: var(--headerRadius);
   width: 1.5rem;
   height: 1.5rem;
   cursor: pointer;

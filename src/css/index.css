@@ -9,6 +9,8 @@
   --table: black;
   --tableEven: #333;
   --overlayBackground: rgba(0, 0, 0, 0.5);
+  --headerRadius: 0.5rem;
+  --inputRadius: 0.25rem;
   font-family: Arial, Helvetica, sans-serif;
   background-color: var(--background);
 }

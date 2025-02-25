@@ -23,7 +23,7 @@
   margin: 1rem auto;
   font-size: 1rem;
   font-weight: bold;
-  border-radius: 0.5rem;
+  border-radius: var(--headerRadius);
   border: none;
   cursor: pointer;
 }

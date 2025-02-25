@@ -6,7 +6,7 @@
 
 .RecipesView button {
   border: 1px solid var(--onPrimary);
-  border-radius: 0.5rem;
+  border-radius: var(--headerRadius);
   width: 2rem;
   height: 2rem;
   cursor: pointer;
@@ -33,7 +33,7 @@
 
 .RecipesView .table {
   border: 1px solid var(--primary);
-  border-radius: 0.5rem;
+  border-radius: var(--headerRadius);
   overflow: hidden;
 }
 
@@ -54,7 +54,7 @@
 .RecipesView .table .add-bar input {
   margin-left: 0.25rem;
   padding: 0.2rem 0.2rem;
-  border-radius: 0.25rem;
+  border-radius: var(--inputRadius);
   border: 1px solid var(--onPrimary);
   outline: none;
 }

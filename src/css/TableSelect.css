@@ -1,5 +1,5 @@
 .TableSelect {
   border: 1px solid var(--background);
-  border-radius: 0.25rem;
+  border-radius: var(--inputRadius);
   padding: 0.25rem;
 }
