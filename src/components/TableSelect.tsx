@@ -5,10 +5,17 @@ interface TableSelectProps {
 	titles: string[];
 	ids: string[];
 	value: string;
+	className?: string;
 	onSelect: (id: string) => void;
 }
 
-export default function TableSelect({ titles, ids, value, onSelect }: TableSelectProps) {
+export default function TableSelect({
+	titles,
+	ids,
+	value,
+	className = '',
+	onSelect
+}: TableSelectProps) {
 	const [selectedId, setSelectedId] = useState(value);
 
 	const handleOnChange = (e: React.SyntheticEvent<HTMLSelectElement>) => {
@@ -20,7 +27,7 @@ export default function TableSelect({ titles, ids, value, onSelect }: TableSelec
 
 	return (
 		<select
-			className='TableSelect'
+			className={`TableSelect ${className}`}
 			defaultValue={selectedId}
 			onChange={handleOnChange}
 		>

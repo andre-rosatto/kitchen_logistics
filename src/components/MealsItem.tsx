@@ -69,6 +69,7 @@ export default function MealsItem({
 									ids={recipes.map(recipe => recipe.id)}
 									titles={recipes.map(recipe => recipe.name)}
 									value={recipeId ?? ''}
+									className='select'
 									onSelect={id => onLunchChange(idx, id)}
 								/>
 							</td>
@@ -101,6 +102,7 @@ export default function MealsItem({
 									ids={recipes.map(recipe => recipe.id)}
 									titles={recipes.map(recipe => recipe.name)}
 									value={recipeId ?? ''}
+									className='select'
 									onSelect={id => onDinnerChange(idx, id)}
 								/>
 							</td>

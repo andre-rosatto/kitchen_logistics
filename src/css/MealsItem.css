@@ -36,6 +36,10 @@
   width: 100%;
 }
 
+.MealsItem table tbody .select {
+  font-size: 0.75rem;
+}
+
 .MealsItem button {
   border: 1px solid var(--onPrimary);
   border-radius: 0.5rem;
