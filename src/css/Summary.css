@@ -1,0 +1,28 @@
+.Summary {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--primary);
+  border-radius: 0.5rem;
+  height: fit-content;
+  overflow: hidden;
+}
+
+.Summary h3 {
+  margin: 0;
+  background-color: var(--primary);
+  color: var(--onPrimary);
+  padding: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.Summary a {
+  color: var(--onBackground);
+  text-decoration: none;
+  background-color: var(--table);
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.Summary a:nth-child(even) {
+  background-color: var(--tableEven);
+}

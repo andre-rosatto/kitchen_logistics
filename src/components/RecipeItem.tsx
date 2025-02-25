@@ -54,7 +54,10 @@ export default function RecipeItem({
 	}
 
 	return (
-		<div className='RecipeItem'>
+		<div
+			className='RecipeItem'
+			id={`_${recipe.id}`}
+		>
 			<div className='header'>
 				<TableInput
 					value={recipeName}

@@ -7,6 +7,7 @@ import TableInput from '../components/TableInput';
 import useFirebase from '../hooks/useFirebase';
 import LoadingOverlay from '../components/LoadingOverlay';
 import ProductController from '../controllers/ProductController';
+import Summary from '../components/Summary';
 
 export default function ProductsView() {
 	const [loading, setLoading] = useState(true);
@@ -71,6 +72,10 @@ export default function ProductsView() {
 		<main className='ProductsView'>
 			{loading && <LoadingOverlay />}
 
+			<Summary
+				items={products}
+			/>
+
 			<div className='table'>
 				<h2>Produtos</h2>
 
@@ -122,7 +127,7 @@ export default function ProductsView() {
 					</thead>
 					<tbody>
 						{products.map(product => (
-							<tr key={product.id}>
+							<tr key={product.id} id={`_${product.id}`}>
 								<td>
 									<TableInput
 										value={product.name}

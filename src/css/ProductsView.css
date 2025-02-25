@@ -1,7 +1,7 @@
 .ProductsView {
-  width: 100%;
-  max-width: 600px;
-  margin: auto;
+  display: flex;
+  justify-content: center;
+  gap: 0.25rem;
 }
 
 .ProductsView button {

@@ -8,6 +8,7 @@ import useFirebase from "../hooks/useFirebase";
 import RecipeItem from "../components/RecipeItem";
 import ProductController from "../controllers/ProductController";
 import RecipeController from "../controllers/RecipeController";
+import Summary from "../components/Summary";
 
 export default function RecipesView() {
 	const [loading, setLoading] = useState(false);
@@ -106,6 +107,10 @@ export default function RecipesView() {
 	return (
 		<main className='RecipesView'>
 			{loading && <LoadingOverlay />}
+
+			<Summary
+				items={recipes}
+			/>
 
 			<div className='table'>
 				<h2>Receitas</h2>
