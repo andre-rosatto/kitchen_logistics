@@ -16,7 +16,14 @@
 .MealsItem table thead td {
   background-color: var(--primary);
   font-weight: bold;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.MealsItem table thead td img.icon {
+  width: 1.5rem;
+  margin-right: 0.5rem;
 }
 
 .MealsItem table tbody tr {

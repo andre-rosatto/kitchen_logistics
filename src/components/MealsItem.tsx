@@ -5,6 +5,13 @@ import TableSelect from './TableSelect';
 import IconButton from './IconButton';
 import sunIcon from '../assets/sun_icon.svg';
 import moonIcon from '../assets/moon_icon.svg';
+import sundayIcon from '../assets/sunday_icon.svg';
+import mondayIcon from '../assets/monday_icon.svg';
+import tuesdayIcon from '../assets/tuesday_icon.svg';
+import wednesdayIcon from '../assets/wednesday_icon.svg';
+import thursdayIcon from '../assets/thursday_icon.svg';
+import fridayIcon from '../assets/friday_icon.svg';
+import saturdayIcon from '../assets/saturday_icon.svg';
 
 interface MealsItemProps {
 	meal: Meals;
@@ -17,7 +24,15 @@ interface MealsItemProps {
 	onDinnerDelete: (recipeIdx: number) => void;
 }
 
-const DAYS = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+const DAYS = [
+	{ title: 'Domingo', icon: sundayIcon },
+	{ title: 'Segunda', icon: mondayIcon },
+	{ title: 'Terça', icon: tuesdayIcon },
+	{ title: 'Quarta', icon: wednesdayIcon },
+	{ title: 'Quinta', icon: thursdayIcon },
+	{ title: 'Sexta', icon: fridayIcon },
+	{ title: 'Sábado', icon: saturdayIcon },
+];
 
 export default function MealsItem({
 	meal,
@@ -48,7 +63,13 @@ export default function MealsItem({
 			<table>
 				<thead>
 					<tr>
-						<td colSpan={2}>{DAYS[meal.day]}</td>
+						<td colSpan={2}>
+							<img
+								src={DAYS[meal.day].icon}
+								className='icon'
+							/>
+							{DAYS[meal.day].title}
+						</td>
 					</tr>
 				</thead>
 				<tbody>
