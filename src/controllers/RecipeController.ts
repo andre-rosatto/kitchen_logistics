@@ -26,7 +26,7 @@ export default class RecipeController {
 				});
 			}
 		});
-		return result;
+		return result.sort((a, b) => a.name.localeCompare(b.name));
 	}
 
 	static async create(db: Firestore, data: Omit<Recipe, 'id'>): Promise<Recipe> {

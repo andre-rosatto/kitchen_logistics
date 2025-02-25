@@ -43,14 +43,17 @@ export default function ProductsView() {
 		setProducts(products => [product, ...products]);
 		setNewProduct('');
 		setNewUnit('');
+		setNewX1000('');
 		setLoading(false);
 	}
 
 	const handleDeleteClick = async (product: Product) => {
-		setLoading(true);
-		await ProductController.delete(db, product);
-		setProducts(products => products.filter(p => p.id !== product.id));
-		setLoading(false);
+		if (confirm(`Tem certeza de que quer excluir este produto?\n${product.name}`)) {
+			setLoading(true);
+			await ProductController.delete(db, product);
+			setProducts(products => products.filter(p => p.id !== product.id));
+			setLoading(false);
+		}
 	}
 
 	const handleProductChange = async (productId: string, newValue: Product) => {

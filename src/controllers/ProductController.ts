@@ -1,14 +1,34 @@
 import { addDoc, collection, deleteDoc, doc, Firestore, getDocs, updateDoc } from "firebase/firestore";
 import { Product } from "../models/Product";
 
+type ProductData = {
+	id: string;
+	data: () => {
+		name: string;
+		unit: string;
+		x1000: string;
+	};
+}
+
 export default class ProductController {
 	private static collectionName = 'products';
+
+	private static isProductData(obj: unknown): obj is ProductData {
+		return (
+			typeof obj === 'object' && obj !== null
+			&& 'id' in obj
+			&& 'data' in obj
+			&& typeof obj.data === 'function'
+			&& 'name' in obj.data()
+			&& 'unit' in obj.data()
+		);
+	}
 
 	static async fetchAll(db: Firestore): Promise<Product[]> {
 		const docs = await getDocs(collection(db, ProductController.collectionName));
 		const result: Product[] = [];
-		docs.forEach((doc: any) => {
-			if (doc.data().name && doc.data().unit) {
+		docs.forEach((doc: unknown) => {
+			if (ProductController.isProductData(doc)) {
 				result.push({
 					id: doc.id,
 					name: doc.data().name,
@@ -17,7 +37,7 @@ export default class ProductController {
 				});
 			}
 		});
-		return result;
+		return result.sort((a, b) => a.name.localeCompare(b.name));
 	}
 
 	static async create(db: Firestore, data: Omit<Product, 'id'>): Promise<Product> {
