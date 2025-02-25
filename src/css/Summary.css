@@ -5,6 +5,8 @@
   border-radius: 0.5rem;
   height: fit-content;
   overflow: hidden;
+  position: sticky;
+  top: 0;
 }
 
 .Summary h3 {
