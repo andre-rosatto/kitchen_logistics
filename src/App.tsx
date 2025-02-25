@@ -6,7 +6,7 @@ import RecipesView from './views/Recipes';
 import MealsView from './views/Meals';
 
 export default function App() {
-	const [currentPageIdx, setCurrentPageIdx] = useState(2);
+	const [currentPageIdx, setCurrentPageIdx] = useState(0);
 
 	const getCurrentPage = () => {
 		switch (currentPageIdx) {
