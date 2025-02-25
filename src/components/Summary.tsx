@@ -4,10 +4,12 @@ import { Recipe } from "../models/Recipe";
 
 interface SummaryProps {
 	items: Product[] | Recipe[];
+	icon: string;
 }
 
-export default function Summary({ items }: SummaryProps) {
-	const handleItemClick = (id: string) => {
+export default function Summary({ items, icon }: SummaryProps) {
+	const handleItemClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+		e.preventDefault();
 		document.querySelector(`#_${id}`)?.scrollIntoView({
 			behavior: 'smooth',
 		});
@@ -15,11 +17,15 @@ export default function Summary({ items }: SummaryProps) {
 
 	return (
 		<section className='Summary'>
-			<h3>Índice</h3>
+			<div className="header">
+				<img src={icon} />
+				<h3>Índice</h3>
+			</div>
 			{items.map(item => (
 				<a
 					key={item.id}
-					onClick={() => handleItemClick(item.id)}
+					href='#'
+					onClick={(e) => handleItemClick(e, item.id)}
 				>{item.name}</a>
 			))}
 		</section>

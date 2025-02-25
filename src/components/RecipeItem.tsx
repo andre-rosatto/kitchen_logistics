@@ -10,6 +10,7 @@ import IconButton from './IconButton';
 interface RecipeItemProps {
 	recipe: Recipe;
 	products: Product[];
+	icon: string;
 	onAddProduct: (productId: string, productAmount: number) => void;
 	onSelect: (idx: number, selecitedId: string) => void;
 	onNameChange: (newValue: string) => void;
@@ -21,6 +22,7 @@ interface RecipeItemProps {
 export default function RecipeItem({
 	recipe,
 	products,
+	icon,
 	onAddProduct,
 	onSelect,
 	onNameChange,
@@ -58,6 +60,10 @@ export default function RecipeItem({
 			id={`_${recipe.id}`}
 		>
 			<div className='header'>
+				<img
+					className='icon'
+					src={icon}
+				/>
 				<TableInput
 					value={recipeName}
 					className='input'

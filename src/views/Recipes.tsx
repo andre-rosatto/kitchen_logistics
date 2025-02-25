@@ -9,6 +9,7 @@ import ProductController from "../controllers/ProductController";
 import RecipeController from "../controllers/RecipeController";
 import Summary from "../components/Summary";
 import IconButton from "../components/IconButton";
+import recipeIcon from '../assets/recipe_icon.svg';
 
 export default function RecipesView() {
 	const [loading, setLoading] = useState(false);
@@ -115,10 +116,17 @@ export default function RecipesView() {
 
 			<Summary
 				items={recipes}
+				icon={recipeIcon}
 			/>
 
 			<div className='table'>
-				<h2>Receitas</h2>
+				<div className='header'>
+					<img
+						src={recipeIcon}
+						className='icon'
+					/>
+					<h2>Receitas</h2>
+				</div>
 
 				<div className='add-bar'>
 					<label>
@@ -142,6 +150,7 @@ export default function RecipesView() {
 						key={recipe.id}
 						recipe={recipe}
 						products={products}
+						icon={recipeIcon}
 						onAddProduct={(productId, productAmount) => handleAddProduct(recipe, productId, productAmount)}
 						onNameChange={newValue => handleNamechange(recipe, newValue)}
 						onAmountChange={(productIdx, newAmount) => handleAmountChange(recipe, productIdx, newAmount)}

@@ -10,10 +10,20 @@
   overflow: hidden;
 }
 
-.ProductsView .table h2 {
+.ProductsView .table .header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   background-color: var(--primary);
-  margin: 0;
   padding: 0.5rem 1rem;
+}
+
+.ProductsView .table .header img.icon {
+  width: 1.75rem;
+}
+
+.ProductsView .table .header h2 {
+  margin: 0;
 }
 
 .ProductsView .table .add-bar {

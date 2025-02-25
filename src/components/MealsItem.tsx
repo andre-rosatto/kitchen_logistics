@@ -3,6 +3,8 @@ import { Meals } from '../models/Meals';
 import { Recipe } from '../models/Recipe';
 import TableSelect from './TableSelect';
 import IconButton from './IconButton';
+import sunIcon from '../assets/sun_icon.svg';
+import moonIcon from '../assets/moon_icon.svg';
 
 interface MealsItemProps {
 	meal: Meals;
@@ -51,7 +53,13 @@ export default function MealsItem({
 				</thead>
 				<tbody>
 					<tr className='meal-heading'>
-						<td>Almoço</td>
+						<td>
+							<img
+								src={sunIcon}
+								className='icon'
+							/>
+							Almoço
+						</td>
 						<td>
 							<IconButton
 								type='add'
@@ -84,7 +92,12 @@ export default function MealsItem({
 					))}
 
 					<tr className='meal-heading'>
-						<td>Jantar</td>
+						<td>
+							<img
+								src={moonIcon}
+								className='icon'
+							/>
+							Jantar</td>
 						<td>
 							<IconButton
 								type='add'

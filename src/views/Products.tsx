@@ -7,6 +7,7 @@ import LoadingOverlay from '../components/LoadingOverlay';
 import ProductController from '../controllers/ProductController';
 import Summary from '../components/Summary';
 import IconButton from '../components/IconButton';
+import productIcon from '../assets/product_icon.svg';
 
 export default function ProductsView() {
 	const [loading, setLoading] = useState(true);
@@ -78,10 +79,17 @@ export default function ProductsView() {
 
 			<Summary
 				items={products}
+				icon={productIcon}
 			/>
 
 			<div className='table'>
-				<h2>Produtos</h2>
+				<div className='header'>
+					<img
+						src={productIcon}
+						className='icon'
+					/>
+					<h2>Produtos</h2>
+				</div>
 
 				<div className='add-bar'>
 					<label>

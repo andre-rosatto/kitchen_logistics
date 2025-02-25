@@ -7,20 +7,17 @@
 
 .RecipeItem .header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 0.5rem;
   background-color: var(--primary);
-}
-
-.RecipeItem .header h3 {
-  margin: 0;
+  gap: 0 !important;
 }
 
 .RecipeItem .header .input {
   color: var(--onPrimary);
   font-size: 1.25rem;
   font-weight: bold;
+  flex: 1;
 }
 
 .RecipeItem .header .input:focus {

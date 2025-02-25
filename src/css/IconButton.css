@@ -1,6 +1,6 @@
 .IconButton {
   border: 1px solid var(--onPrimary);
-  border-radius: var(--headerRadius);
+  border-radius: var(--inputRadius);
   width: 2rem;
   height: 2rem;
   cursor: pointer;

@@ -9,11 +9,21 @@
   top: 0;
 }
 
-.Summary h3 {
-  margin: 0;
+.Summary .header {
+  display: flex;
   background-color: var(--primary);
   color: var(--onPrimary);
   padding: 0.5rem;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.Summary .header img {
+  width: 1.5rem;
+}
+
+.Summary .header h3 {
+  margin: 0;
   font-size: 1.25rem;
 }
 
@@ -23,8 +33,15 @@
   background-color: var(--table);
   padding: 0.5rem;
   cursor: pointer;
+  transition: background-color var(--transitionSpeed),
+    color var(--transitionSpeed);
 }
 
 .Summary a:nth-child(even) {
   background-color: var(--tableEven);
+}
+
+.Summary a:hover {
+  background-color: var(--accentPrimary);
+  color: var(--onPrimary);
 }
