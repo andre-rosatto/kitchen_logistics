@@ -1,9 +1,8 @@
 import '../css/MealsItem.css';
 import { Meals } from '../models/Meals';
 import { Recipe } from '../models/Recipe';
-import addIcon from '../assets/add_icon.svg';
-import deleteIcon from '../assets/delete_icon.svg';
 import TableSelect from './TableSelect';
+import IconButton from './IconButton';
 
 interface MealsItemProps {
 	meal: Meals;
@@ -54,12 +53,12 @@ export default function MealsItem({
 					<tr className='meal-heading'>
 						<td>Almoço</td>
 						<td>
-							<button
-								className='buttonGood'
+							<IconButton
+								type='add'
 								title='Adicionar receita'
+								className='button-small'
 								onClick={onLunchAdd}
-							><img src={addIcon} />
-							</button>
+							/>
 						</td>
 					</tr>
 					{meal.lunch.map((recipeId, idx) => (
@@ -74,12 +73,12 @@ export default function MealsItem({
 								/>
 							</td>
 							<td>
-								<button
-									className='buttonBad'
+								<IconButton
+									type='delete'
+									title='Remover almoço'
+									className='button-small'
 									onClick={() => handleLunchDelete(idx)}
-								>
-									<img src={deleteIcon} />
-								</button>
+								/>
 							</td>
 						</tr>
 					))}
@@ -87,12 +86,12 @@ export default function MealsItem({
 					<tr className='meal-heading'>
 						<td>Jantar</td>
 						<td>
-							<button
-								className='buttonGood'
+							<IconButton
+								type='add'
 								title='Adicionar receita'
+								className='button-small'
 								onClick={onDinnerAdd}
-							><img src={addIcon} />
-							</button>
+							/>
 						</td>
 					</tr>
 					{meal.dinner.map((recipeId, idx) => (
@@ -107,12 +106,12 @@ export default function MealsItem({
 								/>
 							</td>
 							<td>
-								<button
-									className='buttonBad'
+								<IconButton
+									type='delete'
+									title='Remover receita'
+									className='button-small'
 									onClick={() => handleDinnerDelete(idx)}
-								>
-									<img src={deleteIcon} />
-								</button>
+								/>
 							</td>
 						</tr>
 					))}

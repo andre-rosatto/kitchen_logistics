@@ -4,33 +4,6 @@
   gap: 0.25rem;
 }
 
-.ProductsView button {
-  border: 1px solid var(--onPrimary);
-  border-radius: var(--headerRadius);
-  width: 2rem;
-  height: 2rem;
-  cursor: pointer;
-  padding: 0.25rem;
-}
-
-.ProductsView button:disabled {
-  pointer-events: none;
-  opacity: 0.25;
-}
-
-.ProductsView button.buttonGood {
-  background-color: var(--buttonGood);
-}
-
-.ProductsView button.buttonBad {
-  background-color: var(--buttonBad);
-}
-
-.ProductsView .table button img {
-  display: block;
-  width: 100%;
-}
-
 .ProductsView .table {
   border: 1px solid var(--primary);
   border-radius: var(--headerRadius);

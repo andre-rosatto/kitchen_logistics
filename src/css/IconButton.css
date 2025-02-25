@@ -1,0 +1,26 @@
+.IconButton {
+  border: 1px solid var(--onPrimary);
+  border-radius: var(--headerRadius);
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+.IconButton:disabled {
+  pointer-events: none;
+  opacity: 0.25;
+}
+
+.IconButton.add {
+  background-color: var(--buttonGood);
+}
+
+.IconButton.delete {
+  background-color: var(--buttonBad);
+}
+
+.IconButton img {
+  display: block;
+  width: 100%;
+}

@@ -40,26 +40,9 @@
   font-size: 0.75rem;
 }
 
-.MealsItem button {
-  border: 1px solid var(--onPrimary);
-  border-radius: var(--headerRadius);
+.MealsItem .button-small {
   width: 1.5rem;
   height: 1.5rem;
-  cursor: pointer;
-  padding: 0.25rem;
-}
-
-.MealsItem button.buttonGood {
-  background-color: var(--buttonGood);
-}
-
-.MealsItem button.buttonBad {
-  background-color: var(--buttonBad);
-}
-
-.MealsItem button img {
-  display: block;
-  width: 100%;
 }
 
 /* print */

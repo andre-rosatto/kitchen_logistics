@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import '../css/ProductsView.css';
 import { Product } from '../models/Product';
-import addIcon from '../assets/add_icon.svg';
-import deleteIcon from '../assets/delete_icon.svg';
 import TableInput from '../components/TableInput';
 import useFirebase from '../hooks/useFirebase';
 import LoadingOverlay from '../components/LoadingOverlay';
 import ProductController from '../controllers/ProductController';
 import Summary from '../components/Summary';
+import IconButton from '../components/IconButton';
 
 export default function ProductsView() {
 	const [loading, setLoading] = useState(true);
@@ -35,7 +34,7 @@ export default function ProductsView() {
 
 	const handleAddClick = async () => {
 		if (products.find(p => p.name.trim().toLocaleLowerCase() === newProduct.trim().toLocaleLowerCase())) {
-			if (!confirm(`Já existe um produto cadastrado como "${newProduct}".\nAdicionar outro?`)) {
+			if (!confirm(`O produto "${newProduct}" já está cadastrado.\nAdicionar outro?`)) {
 				return;
 			}
 		}
@@ -111,14 +110,12 @@ export default function ProductsView() {
 						/>
 					</label>
 
-					<button
-						className='buttonGood'
+					<IconButton
+						type='add'
+						title='Adicionar produto!!!'
 						disabled={newProduct.trim().length === 0}
-						title='Adicionar produto'
 						onClick={handleAddClick}
-					>
-						<img src={addIcon} />
-					</button>
+					/>
 				</div>
 
 				<table>
@@ -158,12 +155,11 @@ export default function ProductsView() {
 								</td>
 
 								<td>
-									<button
-										className='buttonBad'
+									<IconButton
+										type='delete'
+										title='Remover produto'
 										onClick={() => handleDeleteClick(product)}
-									>
-										<img src={deleteIcon} />
-									</button>
+									/>
 								</td>
 							</tr>
 						))}

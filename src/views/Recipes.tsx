@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import LoadingOverlay from "../components/LoadingOverlay";
-import addIcon from '../assets/add_icon.svg';
 import '../css/RecipesView.css';
 import { Recipe } from "../models/Recipe";
 import { Product } from "../models/Product";
@@ -9,6 +8,7 @@ import RecipeItem from "../components/RecipeItem";
 import ProductController from "../controllers/ProductController";
 import RecipeController from "../controllers/RecipeController";
 import Summary from "../components/Summary";
+import IconButton from "../components/IconButton";
 
 export default function RecipesView() {
 	const [loading, setLoading] = useState(false);
@@ -35,7 +35,7 @@ export default function RecipesView() {
 
 	const handleAddRecipe = async () => {
 		if (products.find(p => p.name.trim().toLocaleLowerCase() === newRecipe.trim().toLocaleLowerCase())) {
-			if (!confirm(`Já existe uma receita cadastrada como "${newRecipe}".\nAdicionar outra?`)) {
+			if (!confirm(`A receita "${newRecipe}" já está cadastrada.\nAdicionar outra?`)) {
 				return;
 			}
 		}
@@ -129,14 +129,12 @@ export default function RecipesView() {
 						/>
 					</label>
 
-					<button
-						className='buttonGood'
-						disabled={newRecipe.trim().length === 0}
+					<IconButton
+						type='add'
 						title='Adicionar receita'
+						disabled={newRecipe.trim().length === 0}
 						onClick={handleAddRecipe}
-					>
-						<img src={addIcon} />
-					</button>
+					/>
 				</div>
 
 				{recipes.map(recipe => (

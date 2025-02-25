@@ -4,33 +4,6 @@
   gap: 0.25rem;
 }
 
-.RecipesView button {
-  border: 1px solid var(--onPrimary);
-  border-radius: var(--headerRadius);
-  width: 2rem;
-  height: 2rem;
-  cursor: pointer;
-  padding: 0.25rem;
-}
-
-.RecipesView button:disabled {
-  pointer-events: none;
-  opacity: 0.25;
-}
-
-.RecipesView button.buttonGood {
-  background-color: var(--buttonGood);
-}
-
-.RecipesView button.buttonBad {
-  background-color: var(--buttonBad);
-}
-
-.RecipesView .table button img {
-  display: block;
-  width: 100%;
-}
-
 .RecipesView .table {
   border: 1px solid var(--primary);
   border-radius: var(--headerRadius);

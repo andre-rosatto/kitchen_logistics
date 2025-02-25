@@ -80,30 +80,3 @@
 .RecipeItem table tbody td {
   padding: 0.25rem 0.5rem;
 }
-
-.RecipeItem button {
-  border: 1px solid var(--onPrimary);
-  border-radius: var(--headerRadius);
-  width: 2rem;
-  height: 2rem;
-  cursor: pointer;
-  padding: 0.25rem;
-}
-
-.RecipeItem button:disabled {
-  pointer-events: none;
-  opacity: 0.25;
-}
-
-.RecipeItem button.buttonGood {
-  background-color: var(--buttonGood);
-}
-
-.RecipeItem button.buttonBad {
-  background-color: var(--buttonBad);
-}
-
-.RecipeItem button img {
-  display: block;
-  width: 100%;
-}

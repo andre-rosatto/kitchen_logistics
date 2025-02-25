@@ -1,5 +1,3 @@
-import addIcon from '../assets/add_icon.svg';
-import deleteIcon from '../assets/delete_icon.svg';
 import TableSelect from "../components/TableSelect";
 import TableInput from "../components/TableInput";
 import { Recipe } from '../models/Recipe';
@@ -7,6 +5,7 @@ import { Product } from '../models/Product';
 import { useState } from 'react';
 import '../css/RecipeItem.css';
 import { Converter } from '../utils/Converter';
+import IconButton from './IconButton';
 
 interface RecipeItemProps {
 	recipe: Recipe;
@@ -64,12 +63,11 @@ export default function RecipeItem({
 					className='input'
 					onChange={handleRecipeNameChange}
 				/>
-				<button
-					className='buttonBad'
-					onClick={() => handleDeleteRecipe()}
-				>
-					<img src={deleteIcon} />
-				</button>
+				<IconButton
+					type='delete'
+					title='Remover receita'
+					onClick={handleDeleteRecipe}
+				/>
 			</div>
 			<div className='add-bar'>
 				<label>
@@ -93,14 +91,12 @@ export default function RecipeItem({
 					{products.find(product => product.id === newProductId)!.unit}
 				</label>
 
-				<button
-					className='buttonGood'
-					disabled={newProductAmount.trim().length === 0}
+				<IconButton
+					type='add'
 					title='Adicionar produto'
+					disabled={newProductAmount.trim().length === 0}
 					onClick={() => onAddProduct(newProductId, Converter.strToFloat(newProductAmount))}
-				>
-					<img src={addIcon} />
-				</button>
+				/>
 			</div>
 			<table>
 				<thead>
@@ -131,12 +127,11 @@ export default function RecipeItem({
 							</td>
 							<td>{products.find(p => p.id === item.productId)?.unit ?? ''}</td>
 							<td>
-								<button
-									className='buttonBad'
+								<IconButton
+									type='delete'
+									title='Remover produto'
 									onClick={() => handleDelete(idx)}
-								>
-									<img src={deleteIcon} />
-								</button>
+								/>
 							</td>
 						</tr>
 					))}
