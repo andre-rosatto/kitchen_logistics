@@ -16,10 +16,9 @@ export default class ProductController {
 	private static isProductData(obj: unknown): obj is ProductData {
 		return (
 			typeof obj === 'object' && obj !== null
-			&& 'id' in obj
-			&& 'data' in obj
-			&& typeof obj.data === 'function'
-			&& 'name' in obj.data()
+			&& 'id' in obj && typeof obj.id === 'string'
+			&& 'data' in obj && typeof obj.data === 'function'
+			&& 'name' in obj.data() && typeof obj.data().name === 'string' && obj.data().name.trim().length > 0
 			&& 'unit' in obj.data()
 		);
 	}
@@ -35,6 +34,8 @@ export default class ProductController {
 					unit: doc.data().unit,
 					x1000: doc.data().x1000 ?? '',
 				});
+			} else if (typeof doc === 'object' && doc !== null && 'id' in doc) {
+				ProductController.delete(db, doc as Product);
 			}
 		});
 		return result.sort((a, b) => a.name.localeCompare(b.name));

@@ -2,14 +2,35 @@ import { addDoc, collection, deleteDoc, doc, Firestore, getDocs, updateDoc } fro
 import { Recipe } from "../models/Recipe";
 import { Product } from "../models/Product";
 
+type RecipeData = {
+	id: string;
+	data: () => {
+		name: string;
+		products: {
+			productId: string;
+			amount: number;
+		}[];
+	}
+}
+
 export default class RecipeController {
 	private static collectionName = 'recipes';
+
+	private static isRecipeData(obj: unknown): obj is RecipeData {
+		return (
+			typeof obj === 'object' && obj !== null
+			&& 'id' in obj && typeof obj.id === 'string'
+			&& 'data' in obj && typeof obj.data === 'function'
+			&& 'name' in obj.data() && typeof obj.data().name === 'string' && obj.data().name.trim().length > 0
+			&& 'products' in obj.data() && typeof obj.data().products === 'object'
+		);
+	}
 
 	static async fetchAll(db: Firestore, products: Product[]): Promise<Recipe[]> {
 		const docs = await getDocs(collection(db, RecipeController.collectionName));
 		const result: Recipe[] = [];
-		docs.forEach((doc: any) => {
-			if (doc.data().name && doc.data().products) {
+		docs.forEach((doc: unknown) => {
+			if (RecipeController.isRecipeData(doc)) {
 				const recipeProducts: Recipe['products'] = [];
 				doc.data().products.forEach((product: Recipe['products'][number]) => {
 					if (products.find(p => p.id === product.productId)) {
