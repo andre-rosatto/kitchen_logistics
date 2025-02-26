@@ -4,9 +4,10 @@ import { useState } from 'react';
 import ProductsView from './views/Products';
 import RecipesView from './views/Recipes';
 import MealsView from './views/Meals';
+import LoginView from './views/Login';
 
 export default function App() {
-	const [currentPageIdx, setCurrentPageIdx] = useState(0);
+	const [currentPageIdx, setCurrentPageIdx] = useState(-1);
 
 	const getCurrentPage = () => {
 		switch (currentPageIdx) {
@@ -14,17 +15,23 @@ export default function App() {
 				return <MealsView />;
 			case 1:
 				return <RecipesView />;
-			default:
+			case 2:
 				return <ProductsView />;
+			default:
+				return (
+					<LoginView
+						onLogin={() => setCurrentPageIdx(0)}
+					/>
+				);
 		}
 	}
 
 	return (
 		<div className='App'>
-			<Navbar
+			{currentPageIdx >= 0 && <Navbar
 				currentPageIdx={currentPageIdx}
 				onPageChange={(newIdx) => setCurrentPageIdx(newIdx)}
-			/>
+			/>}
 
 			<div className='page-container'>
 				{getCurrentPage()}

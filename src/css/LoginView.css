@@ -1,0 +1,53 @@
+.LoginView {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.LoginView form {
+  background-color: var(--primary);
+  border-radius: var(--headerRadius);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.LoginView form h2 {
+  margin: 0 0 0.5rem;
+  text-align: center;
+}
+
+.LoginView form label {
+  display: flex;
+  align-items: center;
+}
+
+.LoginView form input {
+  border-radius: var(--inputRadius);
+  border: 1px solid var(--background);
+  outline: none;
+  padding: 0.25rem 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.LoginView form p {
+  color: var(--buttonBad);
+  font-weight: bold;
+  margin: 0;
+}
+
+.LoginView form button {
+  width: fit-content;
+  padding: 0.5rem 1rem;
+  border-radius: var(--inputRadius);
+  border: none;
+  cursor: pointer;
+}
+
+.LoginView form button:disabled {
+  pointer-events: none;
+}
