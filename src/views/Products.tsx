@@ -15,7 +15,7 @@ export default function ProductsView() {
 	const [newUnit, setNewUnit] = useState('');
 	const [newX1000, setNewX1000] = useState('');
 	const [products, setProducts] = useState<Product[]>([]);
-	const db = useFirebase();
+	const { db } = useFirebase();
 
 	useEffect(() => {
 		setLoading(true);

@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 export default function useFirebase() {
 	const app = initializeApp({
@@ -10,7 +11,21 @@ export default function useFirebase() {
 		messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
 		appId: import.meta.env.VITE_APP_ID,
 	});
+	const auth = getAuth(app);
 	const db = getFirestore(app);
 
-	return db;
+	const signIn = async (email: string, password: string): Promise<boolean> => {
+		try {
+			const credentials = await signInWithEmailAndPassword(auth, email, password);
+			if (credentials) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (e) {
+			return false;
+		}
+	}
+
+	return { signIn, db };
 }

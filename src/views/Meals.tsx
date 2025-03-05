@@ -19,7 +19,7 @@ export default function MealsView() {
 	const [products, setProducts] = useState<Product[]>([]);
 	const [recipes, setRecipes] = useState<Recipe[]>([]);
 	const [meals, setMeals] = useState<Meals[]>([]);
-	const db = useFirebase();
+	const { db } = useFirebase();
 
 	useEffect(() => {
 		let ignore = false;
